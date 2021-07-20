@@ -7,4 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="jacksonmed_white">#eff9f0</color>
+    <color name="jacksonmed_blue">#29abe3</color>
+    <color name="jacksonmed_purple">#2f3192</color>
+    <color name="jacksonmed_gray">#666</color>
+    <color name="jacksonmed_black">#342F37</color>
 </resources>

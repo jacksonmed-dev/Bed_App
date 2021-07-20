@@ -1,4 +1,4 @@
-package com.jacksonmed.bed
+package com.jacksonmed.bed.activities.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

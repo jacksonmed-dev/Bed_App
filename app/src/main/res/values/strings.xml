@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Bed</string>
+    <string name="title_activity_system_overview">SystemOverview</string>
+    <string name="tab_text_1">Bed</string>
+    <string name="tab_text_2">Patient</string>
+
 </resources>
