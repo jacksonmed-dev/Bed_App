@@ -6,14 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".activities.overview.bed.BedFragment">
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/drawableBedFragment"
+        android:name="com.jacksonmed.bed.activities.overview.bed.Drawable.DrawableFragment"
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        android:layout_marginTop="144dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.203"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="300dp"
         android:layout_height="200dp"
-        android:layout_marginTop="76dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.212"
+        app:layout_constraintHorizontal_bias="0.18"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/drawableBedFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,13 +46,14 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/textView_response"
+        android:id="@+id/textViewResponse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/cardView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.75" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
