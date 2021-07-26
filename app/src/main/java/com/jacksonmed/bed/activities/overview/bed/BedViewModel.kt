@@ -1,8 +1,11 @@
 package com.jacksonmed.bed.activities.overview.bed
 
+import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jacksonmed.bed.activities.overview.bed.Drawable.DrawableFragment
 import com.jacksonmed.bed.model.Bed
 import com.jacksonmed.bed.model.StatusResponse
 import com.jacksonmed.bed.repository.RepositoryBed
@@ -27,9 +30,17 @@ class BedViewModel(private val repository: RepositoryBed):ViewModel(){
     }
 
     val bedStatusResponse: MutableLiveData<Response<Bed>> = MutableLiveData()
+
+//    val getBedStatusResponse: LiveData<Response<Bed>> get() = bedStatusResponse
+
     fun getBedStatus(){
         viewModelScope.launch {
             val response: Response<Bed> = repository.getBedStatus()
+            bedStatusResponse.value = response
         }
+    }
+
+    fun setBedDrawable(response: Response<Bed>, drawableFragment: DrawableFragment, context: Context){
+       repository.setBedDrawable(response, drawableFragment, context)
     }
 }

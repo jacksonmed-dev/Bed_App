@@ -1,18 +1,19 @@
 package com.jacksonmed.bed.activities.overview.bed
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import com.jacksonmed.bed.activities.main.MainViewModelFactory
+import androidx.lifecycle.ViewModelProvider
+import com.jacksonmed.bed.R
 import com.jacksonmed.bed.databinding.BedFragmentBinding
-import com.jacksonmed.bed.repository.RepositoryBed
+
 
 class BedFragment : Fragment() {
-    private lateinit var viewModel: BedViewModel
+    private val viewModel: BedViewModel by activityViewModels()
     private var _binding: BedFragmentBinding? = null
 
     private val binding get() = _binding!!
@@ -22,12 +23,14 @@ class BedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = BedFragmentBinding.inflate(inflater, container, false)
+        val root = binding.root
+        return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.switchMassage.setOnCheckedChangeListener {_ , isChecked ->
-            val repository = RepositoryBed()
-            val viewModelFactory = BedViewModelFactory(repository)
-            viewModel = ViewModelProvider(this, viewModelFactory).get(BedViewModel::class.java)
-
             if(isChecked) {
                 viewModel.startMassage()
                 viewModel.startMassageResponse.observe(viewLifecycleOwner, Observer { response ->
@@ -41,10 +44,9 @@ class BedFragment : Fragment() {
             }
         }
 
-
-
-        val root = binding.root
-        return root
+        binding.buttonBedStatus.setOnClickListener {
+            viewModel.getBedStatus()
+        }
     }
 
     companion object {

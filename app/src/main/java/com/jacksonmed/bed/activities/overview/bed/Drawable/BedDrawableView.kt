@@ -2,16 +2,19 @@ package com.jacksonmed.bed.activities.overview.bed.Drawable
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.drawable.ShapeDrawable
-import android.graphics.drawable.shapes.OvalShape
+import android.graphics.drawable.shapes.RectShape
 import android.view.View
+import androidx.core.content.ContextCompat
+import com.jacksonmed.bed.R
 
 class BedDrawableView(context: Context): View(context) {
 
     private var drawableRectangle: MutableList<ShapeDrawable> = mutableListOf()
 
     init {
-        createRectangles(5)
+        createRectangles(8)
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -27,8 +30,7 @@ class BedDrawableView(context: Context): View(context) {
                 val y = baseY
                 val width = 300
                 val height = 50
-
-                ShapeDrawable(OvalShape()).apply {
+                ShapeDrawable(RectShape()).apply {
                     // If the color isn't set, the shape uses black as the default.
                     paint.color = 0xff74AC23.toInt()
                     // If the bounds aren't set, the shape can't be drawn.
@@ -36,14 +38,14 @@ class BedDrawableView(context: Context): View(context) {
                 }
             }
             drawableRectangle.add(drawable)
-            baseY+=50
+            baseY+=75
         }
     }
 
-    fun changeRectColor(index: Int){
+    fun changeRectColor(index: Int, color: Int){
         var rectangle: ShapeDrawable = drawableRectangle.elementAt(index)
         var temp = rectangle.paint.color
-        rectangle.getPaint().setColor(0xffffffff.toInt())
+        rectangle.getPaint().setColor(color)
         var temp2 =  rectangle.paint.color
         drawableRectangle.set(index, rectangle)
         invalidate()
