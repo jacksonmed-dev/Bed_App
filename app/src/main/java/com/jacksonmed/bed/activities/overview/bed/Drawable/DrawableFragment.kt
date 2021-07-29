@@ -8,21 +8,33 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.jacksonmed.bed.R
 
 import com.jacksonmed.bed.activities.overview.bed.BedViewModel
-
+import com.jacksonmed.bed.activities.overview.bed.BedViewModelFactory
+import com.jacksonmed.bed.activities.overview.bed.DrawableFragmentViewModel
+import com.jacksonmed.bed.activities.overview.bed.DrawableFragmentViewModelFactory
+import com.jacksonmed.bed.repository.RepositoryBed
 
 
 class DrawableFragment: Fragment() {
+
+    private val bedViewModel: BedViewModel by activityViewModels()
+    private lateinit var drawableFragmentViewModel: DrawableFragmentViewModel
+
     private lateinit var bedDrawableView: BedDrawableView
-    private val viewModel: BedViewModel by activityViewModels()
+    private var inflatableRegions: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
+        val repository = RepositoryBed()
+        val viewModelFactory = DrawableFragmentViewModelFactory(repository)
+        drawableFragmentViewModel = ViewModelProvider(this, viewModelFactory).get(DrawableFragmentViewModel::class.java)
+
         bedDrawableView = BedDrawableView(requireContext())
 
         return bedDrawableView
@@ -31,7 +43,18 @@ class DrawableFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.bedStatusResponse.observe(viewLifecycleOwner, Observer { response ->
+        drawableFragmentViewModel.getBedStatus()
+        drawableFragmentViewModel.bedStatusResponse.observe(viewLifecycleOwner, Observer { response ->
+            val gpio = response.body()?.gpioPins?.size
+            inflatableRegions = gpio
+            if(inflatableRegions != null) {
+                bedDrawableView.createRectangles(inflatableRegions!!)
+            }
+
+        })
+
+
+        bedViewModel.bedStatusResponse.observe(viewLifecycleOwner, Observer { response ->
             var colorOn: Int = ContextCompat.getColor(requireContext(), R.color.jacksonmed_blue)
             var colorOff: Int = ContextCompat.getColor(requireContext(), R.color.jacksonmed_gray)
 
@@ -54,5 +77,6 @@ class DrawableFragment: Fragment() {
     companion object {
         fun newInstance() = DrawableFragment()
     }
+    // Potential Memory Leak because the bedDrawableView is not set to null in onDestroyView()
 }
 

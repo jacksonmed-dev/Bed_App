@@ -13,23 +13,22 @@ class BedDrawableView(context: Context): View(context) {
 
     private var drawableRectangle: MutableList<ShapeDrawable> = mutableListOf()
 
-    init {
-        createRectangles(8)
-    }
-
     override fun onDraw(canvas: Canvas) {
         for (rectangle in drawableRectangle)
             rectangle.draw(canvas)
     }
 
     fun createRectangles(num: Int){
+        drawableRectangle = mutableListOf()
         var baseY = 10
+        val width = 300
+        val height = 50
+        val offset = 10
+
         for(i in 0 until num){
             val drawable: ShapeDrawable = run {
                 val x = 10
                 val y = baseY
-                val width = 300
-                val height = 50
                 ShapeDrawable(RectShape()).apply {
                     // If the color isn't set, the shape uses black as the default.
                     paint.color = 0xff74AC23.toInt()
@@ -38,8 +37,9 @@ class BedDrawableView(context: Context): View(context) {
                 }
             }
             drawableRectangle.add(drawable)
-            baseY+=75
+            baseY+= height + offset
         }
+        invalidate()
     }
 
     fun changeRectColor(index: Int, color: Int){

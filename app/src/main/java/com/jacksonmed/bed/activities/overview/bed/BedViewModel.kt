@@ -30,9 +30,6 @@ class BedViewModel(private val repository: RepositoryBed):ViewModel(){
     }
 
     val bedStatusResponse: MutableLiveData<Response<Bed>> = MutableLiveData()
-
-//    val getBedStatusResponse: LiveData<Response<Bed>> get() = bedStatusResponse
-
     fun getBedStatus(){
         viewModelScope.launch {
             val response: Response<Bed> = repository.getBedStatus()

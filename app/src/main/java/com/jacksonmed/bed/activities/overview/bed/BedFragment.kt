@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.jacksonmed.bed.R
 import com.jacksonmed.bed.databinding.BedFragmentBinding
 
 

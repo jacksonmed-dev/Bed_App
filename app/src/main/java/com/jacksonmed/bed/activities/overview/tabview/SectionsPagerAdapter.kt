@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.jacksonmed.bed.R
 import com.jacksonmed.bed.activities.overview.bed.BedFragment
+import com.jacksonmed.bed.activities.overview.patient.PatientFragment
 
 private val TAB_TITLES = arrayOf(
     R.string.tab_text_1,
@@ -24,7 +25,7 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
         // Return a PlaceholderFragment (defined as a static inner class below).
         when(position){
             0 -> return BedFragment.newInstance()
-            1 -> return PlaceholderFragment.newInstance(sectionNumber = 2)
+            1 -> return PatientFragment.newInstance()
             else -> return PlaceholderFragment.newInstance(position + 1)
         }
     }
