@@ -26,11 +26,11 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
         when(position){
             0 -> return BedFragment.newInstance()
             1 -> return PatientFragment.newInstance()
-            else -> return PlaceholderFragment.newInstance(position + 1)
         }
+        return PlaceholderFragment.newInstance(position + 1)
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
+    override fun getPageTitle(position: Int): CharSequence {
         return context.resources.getString(TAB_TITLES[position])
     }
 

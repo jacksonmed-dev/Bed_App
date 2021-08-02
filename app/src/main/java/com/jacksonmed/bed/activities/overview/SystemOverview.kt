@@ -1,11 +1,9 @@
 package com.jacksonmed.bed.activities.overview
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import com.google.android.material.tabs.TabLayout
 import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.jacksonmed.bed.activities.overview.bed.BedViewModel
 import com.jacksonmed.bed.activities.overview.bed.BedViewModelFactory
@@ -16,7 +14,6 @@ import com.jacksonmed.bed.repository.RepositoryBed
 class SystemOverview : AppCompatActivity() {
 
     private lateinit var binding: ActivitySystemOverviewBinding
-//    private val viewModel: BedViewModel by viewModels<BedViewModel>(BedViewModelFactory(RepositoryBed()))
     private lateinit var viewModel: BedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {

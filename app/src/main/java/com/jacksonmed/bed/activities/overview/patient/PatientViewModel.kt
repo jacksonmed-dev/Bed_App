@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jacksonmed.bed.model.Patient
 import com.jacksonmed.bed.model.PatientPressure
-import com.jacksonmed.bed.model.StatusResponse
 import com.jacksonmed.bed.repository.RepositoryPatient
 import kotlinx.coroutines.launch
 import retrofit2.Response

@@ -4,4 +4,16 @@
     <string name="tab_text_1">Bed</string>
     <string name="tab_text_2">Patient</string>
 
+    <string name="patient_name">Name: %1$s %2$s</string>
+    <string name="patient_age">Age: %1$d</string>
+    <string name="patient_height">Height: %1$d</string>\
+    <string name="patient_weight">Weight: %1$d</string>
+
+    <string name="head_pressure">Head: %1$.1f psi</string>
+    <string name="shoulder_pressure">Head: %1$.1f psi</string>
+    <string name="back_pressure">Head: %1$.1f psi</string>
+    <string name="butt_pressure">Head: %1$.1f psi</string>
+    <string name="calve_pressure">Head: %1$.1f psi</string>
+    <string name="foot_pressure">Head: %1$.1f psi</string>
+
 </resources>

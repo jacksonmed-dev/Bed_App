@@ -1,16 +1,13 @@
 package com.jacksonmed.bed.activities.overview.patient
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.SeekBar
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.jacksonmed.bed.R
 import com.jacksonmed.bed.databinding.PatientFragmentBinding
@@ -33,7 +30,7 @@ class PatientFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = PatientFragmentBinding.inflate(inflater, container, false)
 
         val repository = RepositoryPatient()
@@ -42,14 +39,14 @@ class PatientFragment : Fragment() {
 
         // Get the patient info
         patientViewModel.getPatientInfo()
-        patientViewModel.patientInfo.observe(viewLifecycleOwner, Observer { response ->
+        patientViewModel.patientInfo.observe(viewLifecycleOwner, { response ->
             patient = response.body()
             setPatientInfo()
         })
 
         // Get the current patient pressure model
         patientViewModel.getMaxPressure()
-        patientViewModel.maxPressure.observe(viewLifecycleOwner, Observer { response ->
+        patientViewModel.maxPressure.observe(viewLifecycleOwner, { response ->
             patientPressure = response.body()
             setPatientPressure()
             patientPressureMapping(patientPressure!!)               //Fix this!! Bad design
@@ -57,17 +54,17 @@ class PatientFragment : Fragment() {
 
         return binding.root
     }
-    // Change this to onViewCreated
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        patientViewModel = ViewModelProvider(this).get(PatientViewModel::class.java)
+
         binding.imageView.setImageResource(R.drawable.body_3d)
         binding.imageView.tag = R.drawable.body_3d
 
 
         binding.buttonGetPressure.setOnClickListener {
             patientViewModel.getMaxPressure()
-            patientViewModel.maxPressure.observe(viewLifecycleOwner, Observer { response ->
+            patientViewModel.maxPressure.observe(viewLifecycleOwner, { response ->
                 patientPressure = response.body()
                 if(patientPressure != null)
                     patientPressureMapping(patientPressure = patientPressure!!)
@@ -88,36 +85,9 @@ class PatientFragment : Fragment() {
             }
         }
 
-//        binding.seekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
-//            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-//            }
-//
-//            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-//            }
-//
-//            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-//                changeImgHue(seekBar!!.progress, 0, binding.seekBarColorPercentage!!.progress)
-//                binding.textViewSeekBar.text = binding.seekBar.progress.toString()
-//            }
-//        })
-
-//        binding.seekBarColorPercentage.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
-//            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-//            }
-//
-//            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-//
-//            }
-//
-//            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-//                changeImgHue(binding.seekBar!!.progress, 0, seekBar!!.progress)
-//                binding.textViewSeekBar.text = binding.seekBar.progress.toString()
-//            }
-//
-//        })
     }
 
-    fun patientPressureMapping(patientPressure: PatientPressure){
+    private fun patientPressureMapping(patientPressure: PatientPressure){
         val head: Int = ((patientPressure.head/MAX_PRESSURE) * 360).toInt()
         changeImgHue(head, 0, 15)
 
@@ -125,7 +95,7 @@ class PatientFragment : Fragment() {
         changeImgHue(shoulders, 15, 23)
 
         val back: Int = ((patientPressure.back/MAX_PRESSURE) * 360).toInt()
-        changeImgHue(150, 23, 40)
+        changeImgHue(back, 23, 40)
 
         val butt: Int = ((patientPressure.butt/MAX_PRESSURE) * 360).toInt()
         changeImgHue(butt, 40, 53)
@@ -137,35 +107,31 @@ class PatientFragment : Fragment() {
         changeImgHue(feet, 95, 100)
     }
 
-    fun changeImgHue(hue: Int, heightStart: Int, heightEnd: Int){
+    private fun changeImgHue(hue: Int, heightStart: Int, heightEnd: Int){
         val imgView: ImageView = binding.imageView
         val drawable: BitmapDrawable = imgView.drawable as BitmapDrawable
-        var bm: Bitmap = drawable.bitmap
-//        var bm: Bitmap = BitmapFactory.decodeResource(resources, imgView.tag as Int)
+        val bm: Bitmap = Hue.changeHue(drawable.bitmap, hue, drawable.bitmap.width, heightStart, heightEnd)
 
-        var bmCopy: Bitmap = Hue.changeHue(bm, hue, bm.width, heightStart, heightEnd)
-        imgView.setImageBitmap(bmCopy)
-
-        imgView.setImageBitmap(bmCopy)
+        imgView.setImageBitmap(bm)
     }
 
-    fun setPatientPressure(){
+    private fun setPatientPressure(){
         if(patientPressure == null) return
-        binding.textViewHeadPressure.text = "Head:\t" + patientPressure!!.head.toString()
-        binding.textViewShoulderPressure.text = "Shoulders:\t" + patientPressure!!.shoulders.toString()
-        binding.textViewBackPressure.text = "Back:\t" + patientPressure!!.back.toString()
-        binding.textViewButtPressure.text = "Butt:\t" + patientPressure!!.butt.toString()
-        binding.textViewCalvesPressure.text = "Calves:\t" + patientPressure!!.calves.toString()
-        binding.textViewFeetPressure.text = "Feet:\t" + patientPressure!!.feet.toString()
+        binding.textViewHeadPressure.text = getString(R.string.head_pressure, patientPressure!!.head)
+        binding.textViewShoulderPressure.text = getString(R.string.shoulder_pressure, patientPressure!!.shoulders)
+        binding.textViewBackPressure.text = getString(R.string.back_pressure, patientPressure!!.back)
+        binding.textViewButtPressure.text = getString(R.string.butt_pressure, patientPressure!!.butt)
+        binding.textViewCalvesPressure.text = getString(R.string.calve_pressure, patientPressure!!.calves)
+        binding.textViewFeetPressure.text = getString(R.string.foot_pressure, patientPressure!!.feet)
     }
 
-    fun setPatientInfo(){
+    private fun setPatientInfo(){
         if(patient == null) return
-        binding.textViewPatientName.text = "Name:\t" +  patient!!.firstName + " " + patient!!.lastName
-        binding.textViewPatientNameCard.text = "Name:\t" +  patient!!.firstName + " " + patient!!.lastName
-        binding.textViewPatientAge.text = "Age:\t" + patient!!.age
-        binding.textViewPatientHeight.text = "Height:\t" + patient!!.height
-        binding.textViewPatientWeight.text = "Weight:\t" + patient!!.weight
+        binding.textViewPatientName.text = getString(R.string.patient_name, patient!!.firstName, patient!!.lastName)
+        binding.textViewPatientNameCard.text = getString(R.string.patient_name, patient!!.firstName, patient!!.lastName)
+        binding.textViewPatientAge.text = getString(R.string.patient_age, patient!!.age)
+        binding.textViewPatientHeight.text = getString(R.string.patient_height, patient!!.height)
+        binding.textViewPatientWeight.text = getString(R.string.patient_weight, patient!!.weight)
     }
 
     companion object {

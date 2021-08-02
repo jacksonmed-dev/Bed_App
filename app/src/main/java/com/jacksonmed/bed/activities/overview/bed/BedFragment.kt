@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import com.jacksonmed.bed.databinding.BedFragmentBinding
 
 
@@ -19,10 +18,9 @@ class BedFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = BedFragmentBinding.inflate(inflater, container, false)
-        val root = binding.root
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,12 +29,12 @@ class BedFragment : Fragment() {
         binding.switchMassage.setOnCheckedChangeListener {_ , isChecked ->
             if(isChecked) {
                 viewModel.startMassage()
-                viewModel.startMassageResponse.observe(viewLifecycleOwner, Observer { response ->
+                viewModel.startMassageResponse.observe(viewLifecycleOwner, { response ->
                     binding.textViewResponse.text = response.body()?.toString()
                 })
             }else {
                 viewModel.stopMassage()
-                viewModel.stopMassageResponse.observe(viewLifecycleOwner, Observer { response ->
+                viewModel.stopMassageResponse.observe(viewLifecycleOwner, { response ->
                     binding.textViewResponse.text = response.body()?.toString()
                 })
             }
