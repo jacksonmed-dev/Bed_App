@@ -1,29 +1,39 @@
 package com.jacksonmed.bed.activities.overview.patient
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.jacksonmed.bed.api.ApiResponse
 import com.jacksonmed.bed.model.Patient
 import com.jacksonmed.bed.model.PatientPressure
 import com.jacksonmed.bed.repository.RepositoryPatient
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.lang.Exception
 
 class PatientViewModel(private val repository: RepositoryPatient) : ViewModel() {
-    val maxPressure: MutableLiveData<Response<PatientPressure>> = MutableLiveData()
-    fun getMaxPressure(){
+    val maxPressure: MediatorLiveData<ApiResponse<PatientPressure>> = MediatorLiveData()
+    fun getMaxPressure(): LiveData<ApiResponse<PatientPressure>> {
         viewModelScope.launch {
-            val response: Response<PatientPressure> = repository.getPatientPressure()
-            maxPressure.value = response
+            maxPressure.addSource(repository.getPatientPressure()) { response ->
+                maxPressure.value = response
+            }
         }
+        return maxPressure
     }
 
-    val patientInfo: MutableLiveData<Response<Patient>> = MutableLiveData()
-    fun getPatientInfo() {
+
+
+    val patientInfoResponse: MediatorLiveData<ApiResponse<Patient>> = MediatorLiveData()
+    fun getPatientInfo(): LiveData<ApiResponse<Patient>> {
         viewModelScope.launch {
-            val response: Response<Patient> = repository.getPatientInfo()
-            patientInfo.value = response
+            patientInfoResponse.addSource(
+                repository.getPatientInfo()
+            ) { response ->
+                patientInfoResponse.value = response
+            }
         }
+        return patientInfoResponse
     }
 
 }

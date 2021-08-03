@@ -16,6 +16,16 @@ import com.jacksonmed.bed.model.PatientPressure
 import com.jacksonmed.bed.repository.RepositoryPatient
 import com.jacksonmed.bed.utils.Constants.Companion.MAX_PRESSURE
 import com.jacksonmed.bed.utils.Hue
+import android.widget.Toast
+import androidx.lifecycle.Observer
+
+import com.jacksonmed.bed.activities.main.MainActivity
+import com.jacksonmed.bed.activities.overview.SystemOverview
+
+import com.jacksonmed.bed.api.ApiResponse
+
+
+
 
 class PatientFragment : Fragment() {
     private lateinit var patientViewModel: PatientViewModel
@@ -37,19 +47,31 @@ class PatientFragment : Fragment() {
         val viewModelFactory = PatientViewModelFactory(repository)
         patientViewModel = ViewModelProvider(this, viewModelFactory).get(PatientViewModel::class.java)
 
-        // Get the patient info
-        patientViewModel.getPatientInfo()
-        patientViewModel.patientInfo.observe(viewLifecycleOwner, { response ->
-            patient = response.body()
-            setPatientInfo()
+
+
+        patientViewModel.getPatientInfo().observe(viewLifecycleOwner, object : Observer<ApiResponse<Patient>> {
+            override fun onChanged(apiResponse: ApiResponse<Patient>) {
+                if (apiResponse.error != null && apiResponse.response == null) {   // Call unsuccessful
+                    Toast.makeText(context, apiResponse.error.toString(), Toast.LENGTH_LONG).show()
+                    return
+                }
+
+                patient = apiResponse.response?.body()
+                setPatientInfo()
+            }
         })
 
-        // Get the current patient pressure model
-        patientViewModel.getMaxPressure()
-        patientViewModel.maxPressure.observe(viewLifecycleOwner, { response ->
-            patientPressure = response.body()
-            setPatientPressure()
-            patientPressureMapping(patientPressure!!)               //Fix this!! Bad design
+
+//        // Get the current patient pressure model
+        patientViewModel.getMaxPressure().observe(viewLifecycleOwner, object: Observer<ApiResponse<PatientPressure>>{
+            override fun onChanged(apiResponse: ApiResponse<PatientPressure>) {
+                if (apiResponse.error != null && apiResponse.response == null) {    // call unsuccessful
+                    Toast.makeText(context, apiResponse.error.toString(), Toast.LENGTH_LONG).show()  //Fix this!! Bad design
+                    return
+                }
+                patientPressure = apiResponse.response?.body()
+                patientPressureMapping(patientPressure!!)
+            }
         })
 
         return binding.root
@@ -62,15 +84,15 @@ class PatientFragment : Fragment() {
         binding.imageView.tag = R.drawable.body_3d
 
 
-        binding.buttonGetPressure.setOnClickListener {
-            patientViewModel.getMaxPressure()
-            patientViewModel.maxPressure.observe(viewLifecycleOwner, { response ->
-                patientPressure = response.body()
-                if(patientPressure != null)
-                    patientPressureMapping(patientPressure = patientPressure!!)
-
-            })
-        }
+//        binding.buttonGetPressure.setOnClickListener {
+//            patientViewModel.getMaxPressure()
+//            patientViewModel.maxPressure.observe(viewLifecycleOwner, { response ->
+//                patientPressure = response.body()
+//                if(patientPressure != null)
+//                    patientPressureMapping(patientPressure = patientPressure!!)
+//
+//            })
+//        }
 
         binding.checkBox.setOnClickListener {
             val imgView: ImageView = binding.imageView

@@ -28,13 +28,13 @@ class MainViewModel(private val repository: Repository):ViewModel() {
         }
     }
 
-    val patientResponse: MutableLiveData<Response<Patient>> = MutableLiveData()
-    fun getPatientInfo(){
-        viewModelScope.launch {
-            val response:Response<Patient> = repository.getPatientInfo()
-            patientResponse.value = response
-        }
-    }
+//    val patientResponse: MutableLiveData<Response<Patient>> = MutableLiveData()
+//    fun getPatientInfo(){
+//        viewModelScope.launch {
+//            val response:Response<Patient> = repository.getPatientInfo()
+//            patientResponse.value = response
+//        }
+//    }
 
     val massageStartResponse: MutableLiveData<Response<StatusResponse>> = MutableLiveData()
     fun startMassage(){

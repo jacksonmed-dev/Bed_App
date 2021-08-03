@@ -1,5 +1,7 @@
 package com.jacksonmed.bed.api
 import com.jacksonmed.bed.model.*
+import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.http.GET
 

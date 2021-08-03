@@ -1,21 +1,22 @@
 package com.jacksonmed.bed.repository
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.widget.ImageView
+import androidx.lifecycle.MutableLiveData
+import com.jacksonmed.bed.api.ApiResponse
 import com.jacksonmed.bed.api.RetrofitInstance
+import com.jacksonmed.bed.api.checkApiResponse
 import com.jacksonmed.bed.model.Patient
 import com.jacksonmed.bed.model.PatientPressure
-import com.jacksonmed.bed.utils.Hue
 import retrofit2.Response
 
 class RepositoryPatient {
-    suspend fun getPatientPressure(): Response<PatientPressure> {
-        return RetrofitInstance.api.getMaxPressure()
+    suspend fun getPatientPressure(): MutableLiveData<ApiResponse<PatientPressure>> {
+        var apiResponse: Response<PatientPressure> = RetrofitInstance.api.getMaxPressure()
+        return checkApiResponse(apiResponse)
     }
 
-    suspend fun getPatientInfo(): Response<Patient> {
-        return RetrofitInstance.api.getPatientInfo()
-    }
 
+    suspend fun getPatientInfo(): MutableLiveData<ApiResponse<Patient>> {
+        var apiResponse: Response<Patient> = RetrofitInstance.api.getPatientInfo()
+        return checkApiResponse(apiResponse)
+    }
 }

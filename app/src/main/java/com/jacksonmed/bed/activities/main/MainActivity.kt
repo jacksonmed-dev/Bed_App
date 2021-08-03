@@ -24,15 +24,15 @@ class MainActivity : AppCompatActivity() {
             val repository = Repository()
             val viewModelFactory = MainViewModelFactory(repository)
             viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-            viewModel.getPatientInfo()
-            viewModel.patientResponse.observe(this,  { response ->
-                if(response.isSuccessful){
-                    binding.textViewResponse.text = response.body()?.toString()
-                }else {
-                    binding.textViewResponse.text = response.errorBody().toString()
-                }
-
-            })
+//            viewModel.getPatientInfo()
+//            viewModel.patientResponse.observe(this,  { response ->
+//                if(response.isSuccessful){
+//                    binding.textViewResponse.text = response.body()?.toString()
+//                }else {
+//                    binding.textViewResponse.text = response.errorBody().toString()
+//                }
+//
+//            })
         }
 
 

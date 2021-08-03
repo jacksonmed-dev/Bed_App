@@ -5,8 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import com.jacksonmed.bed.api.ApiResponse
 import com.jacksonmed.bed.databinding.BedFragmentBinding
+import com.jacksonmed.bed.model.StatusResponse
 
 
 class BedFragment : Fragment() {
@@ -28,14 +32,25 @@ class BedFragment : Fragment() {
 
         binding.switchMassage.setOnCheckedChangeListener {_ , isChecked ->
             if(isChecked) {
-                viewModel.startMassage()
-                viewModel.startMassageResponse.observe(viewLifecycleOwner, { response ->
-                    binding.textViewResponse.text = response.body()?.toString()
+                viewModel.startMassage().observe(viewLifecycleOwner, object: Observer<ApiResponse<StatusResponse>> {
+                    override fun onChanged(apiResponse: ApiResponse<StatusResponse>) {
+                        if (apiResponse.error != null && apiResponse.response == null) {   // Call unsuccessful
+                            Toast.makeText(context, apiResponse.error.toString(), Toast.LENGTH_LONG).show()
+                            return
+                        }
+                        binding.textViewResponse.text = apiResponse.response?.body()?.toString()
+                    }
+
                 })
             }else {
-                viewModel.stopMassage()
-                viewModel.stopMassageResponse.observe(viewLifecycleOwner, { response ->
-                    binding.textViewResponse.text = response.body()?.toString()
+                viewModel.stopMassage().observe(viewLifecycleOwner, object: Observer<ApiResponse<StatusResponse>> {
+                    override fun onChanged(apiResponse: ApiResponse<StatusResponse>) {
+                        if (apiResponse.error != null && apiResponse.response == null) {   // Call unsuccessful
+                            Toast.makeText(context, apiResponse.error.toString(), Toast.LENGTH_LONG).show()
+                            return
+                        }
+                        binding.textViewResponse.text = apiResponse.response?.body()?.toString()
+                    }
                 })
             }
         }

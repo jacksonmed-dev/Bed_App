@@ -16,9 +16,9 @@ class Repository {
         return RetrofitInstance.api.getResponse()
     }
 
-    suspend fun getPatientInfo(): Response<Patient> {
-        return RetrofitInstance.api.getPatientInfo()
-    }
+//    suspend fun getPatientInfo(): Response<Patient> {
+//        return RetrofitInstance.api.getPatientInfo()
+//    }
 
     suspend fun startMassage(): Response<StatusResponse> {
         return RetrofitInstance.api.startMassage()

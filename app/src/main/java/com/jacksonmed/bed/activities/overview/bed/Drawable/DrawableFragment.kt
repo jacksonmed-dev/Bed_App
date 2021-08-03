@@ -43,9 +43,8 @@ class DrawableFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        drawableFragmentViewModel.getBedStatus()
-        drawableFragmentViewModel.bedStatusResponse.observe(viewLifecycleOwner, Observer { response ->
-            val gpio = response.body()?.gpioPins?.size
+        drawableFragmentViewModel.getBedStatus().observe(viewLifecycleOwner, Observer { response ->
+            val gpio = response.response?.body()?.gpioPins?.size
             inflatableRegions = gpio
             if(inflatableRegions != null) {
                 bedDrawableView.createRectangles(inflatableRegions!!)
@@ -54,11 +53,11 @@ class DrawableFragment: Fragment() {
         })
 
 
-        bedViewModel.bedStatusResponse.observe(viewLifecycleOwner, Observer { response ->
+        bedViewModel.getBedStatus().observe(viewLifecycleOwner, Observer { response ->
             var colorOn: Int = ContextCompat.getColor(requireContext(), R.color.jacksonmed_blue)
             var colorOff: Int = ContextCompat.getColor(requireContext(), R.color.jacksonmed_gray)
 
-            val gpio = response.body()?.gpioPins
+            val gpio = response.response?.body()?.gpioPins
             if (gpio != null) {
                 gpio.forEachIndexed{index, element ->
                     if(element.state == 0) {
