@@ -54,8 +54,8 @@ class DrawableFragment: Fragment() {
 
 
         bedViewModel.getBedStatus().observe(viewLifecycleOwner, Observer { response ->
-            var colorOn: Int = ContextCompat.getColor(requireContext(), R.color.jacksonmed_blue)
-            var colorOff: Int = ContextCompat.getColor(requireContext(), R.color.jacksonmed_gray)
+            var colorOn: Int = ContextCompat.getColor(requireContext(), R.color.primary)
+            var colorOff: Int = ContextCompat.getColor(requireContext(), R.color.gray)
 
             val gpio = response.response?.body()?.gpioPins
             if (gpio != null) {

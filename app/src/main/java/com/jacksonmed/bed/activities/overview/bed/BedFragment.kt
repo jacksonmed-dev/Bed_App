@@ -9,13 +9,13 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.jacksonmed.bed.api.ApiResponse
-import com.jacksonmed.bed.databinding.BedFragmentBinding
+import com.jacksonmed.bed.databinding.FragmentBedBinding
 import com.jacksonmed.bed.model.StatusResponse
 
 
 class BedFragment : Fragment() {
     private val viewModel: BedViewModel by activityViewModels()
-    private var _binding: BedFragmentBinding? = null
+    private var _binding: FragmentBedBinding? = null
 
     private val binding get() = _binding!!
 
@@ -23,7 +23,7 @@ class BedFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = BedFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentBedBinding.inflate(inflater, container, false)
         return binding.root
     }
 

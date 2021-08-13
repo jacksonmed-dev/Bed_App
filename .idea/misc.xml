@@ -3,9 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/cjsta/AndroidStudioProjects/Bed_App/app/src/main/res/drawable-anydpi/ic_action_jms_logo.xml" value="0.215" />
+        <entry key="..\:/Users/cjsta/AndroidStudioProjects/Bed_App/app/src/main/res/drawable/bottom_navigation_background_curved.xml" value="0.1322222222222222" />
+        <entry key="..\:/Users/cjsta/AndroidStudioProjects/Bed_App/app/src/main/res/drawable/gradient_background.xml" value="0.12760416666666666" />
+        <entry key="..\:/Users/cjsta/AndroidStudioProjects/Bed_App/app/src/main/res/drawable/ic_baseline_single_bed_24.xml" value="0.215" />
+        <entry key="..\:/Users/cjsta/AndroidStudioProjects/Bed_App/app/src/main/res/drawable/jms_logo_text.xml" value="0.11783854166666667" />
+        <entry key="..\:/Users/cjsta/AndroidStudioProjects/Bed_App/app/src/main/res/font/card_view_font.xml" value="0.175390625" />
         <entry key="..\:/Users/cjsta/AndroidStudioProjects/Bed_App/app/src/main/res/layout/activity_main.xml" value="0.25546875" />
+        <entry key="..\:/Users/cjsta/AndroidStudioProjects/Bed_App/app/src/main/res/layout/activity_splash_screen.xml" value="0.19287109375" />
+        <entry key="..\:/Users/cjsta/AndroidStudioProjects/Bed_App/app/src/main/res/layout/activity_system_overview.xml" value="0.25" />
         <entry key="..\:/Users/cjsta/AndroidStudioProjects/Bed_App/app/src/main/res/layout/bed_fragment.xml" value="0.248828125" />
+        <entry key="..\:/Users/cjsta/AndroidStudioProjects/Bed_App/app/src/main/res/layout/fragment_bed.xml" value="0.19091796875" />
+        <entry key="..\:/Users/cjsta/AndroidStudioProjects/Bed_App/app/src/main/res/layout/fragment_patient.xml" value="0.2" />
         <entry key="..\:/Users/cjsta/AndroidStudioProjects/Bed_App/app/src/main/res/layout/fragment_system_overview.xml" value="0.248828125" />
+        <entry key="..\:/Users/cjsta/AndroidStudioProjects/Bed_App/app/src/main/res/layout/settings_fragment.xml" value="0.17138671875" />
+        <entry key="..\:/Users/cjsta/AndroidStudioProjects/Bed_App/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.248828125" />
+        <entry key="..\:/Users/cjsta/AndroidStudioProjects/Bed_App/app/src/main/res/menu/bottom_navigation_menu_fragments.xml" value="0.21777777777777776" />
       </map>
     </option>
   </component>

@@ -10,7 +10,7 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.jacksonmed.bed.R
-import com.jacksonmed.bed.databinding.PatientFragmentBinding
+import com.jacksonmed.bed.databinding.FragmentPatientBinding
 import com.jacksonmed.bed.model.Patient
 import com.jacksonmed.bed.model.PatientPressure
 import com.jacksonmed.bed.repository.RepositoryPatient
@@ -30,7 +30,7 @@ import com.jacksonmed.bed.api.ApiResponse
 class PatientFragment : Fragment() {
     private lateinit var patientViewModel: PatientViewModel
 
-    private var _binding: PatientFragmentBinding? = null
+    private var _binding: FragmentPatientBinding? = null
     private val binding get() = _binding!!
 
     private var patient: Patient? = null
@@ -41,7 +41,7 @@ class PatientFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = PatientFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentPatientBinding.inflate(inflater, container, false)
 
         val repository = RepositoryPatient()
         val viewModelFactory = PatientViewModelFactory(repository)
@@ -71,6 +71,7 @@ class PatientFragment : Fragment() {
                 }
                 patientPressure = apiResponse.response?.body()
                 patientPressureMapping(patientPressure!!)
+                setPatientPressure()
             }
         })
 
@@ -149,7 +150,6 @@ class PatientFragment : Fragment() {
 
     private fun setPatientInfo(){
         if(patient == null) return
-        binding.textViewPatientName.text = getString(R.string.patient_name, patient!!.firstName, patient!!.lastName)
         binding.textViewPatientNameCard.text = getString(R.string.patient_name, patient!!.firstName, patient!!.lastName)
         binding.textViewPatientAge.text = getString(R.string.patient_age, patient!!.age)
         binding.textViewPatientHeight.text = getString(R.string.patient_height, patient!!.height)

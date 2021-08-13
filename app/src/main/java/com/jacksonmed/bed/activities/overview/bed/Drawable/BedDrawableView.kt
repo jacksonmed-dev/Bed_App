@@ -43,6 +43,7 @@ class BedDrawableView(context: Context): View(context) {
     }
 
     fun changeRectColor(index: Int, color: Int){
+        if (drawableRectangle.size == 0) return
         var rectangle: ShapeDrawable = drawableRectangle.elementAt(index)
         var temp = rectangle.paint.color
         rectangle.getPaint().setColor(color)

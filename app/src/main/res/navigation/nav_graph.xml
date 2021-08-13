@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/patientFragment">
+
+    <fragment
+        android:id="@+id/patientFragment"
+        android:name="com.jacksonmed.bed.activities.overview.patient.PatientFragment"
+        android:label="patient_fragment"
+        tools:layout="@layout/fragment_patient" />
+    <fragment
+        android:id="@+id/bedFragment"
+        android:name="com.jacksonmed.bed.activities.overview.bed.BedFragment"
+        android:label="bed_fragment"
+        tools:layout="@layout/fragment_bed" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.jacksonmed.bed.activities.overview.settings.SettingsFragment"
+        android:label="settings_fragment"
+        tools:layout="@layout/settings_fragment" />
+</navigation>

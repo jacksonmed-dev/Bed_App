@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".activities.overview.patient.PatientFragment">
+
+        <TextView
+            android:id="@+id/textViewPatientPressure"
+            style="@style/titleLarge"
+            android:text="@string/card_view_label_patient_pressure"
+            app:layout_constraintBottom_toTopOf="@+id/cardViewPressureStats"
+            app:layout_constraintStart_toStartOf="@+id/cardViewPressureStats" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewPressureStats"
+            style="@style/cardViewLarge"
+            android:layout_marginTop="84dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="500dp"
+                    android:layout_height="500dp"
+                    android:src="@drawable/body_3d"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.995"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="0dp">
+
+                    <TextView
+                        android:id="@+id/textViewHeadPressure"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/textViewShoulderPressure"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/textViewBackPressure"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/textViewButtPressure"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/textViewCalvesPressure"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/textViewFeetPressure"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="TextView" />
+                </LinearLayout>
+
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.074"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textViewPressureStatsShowMore"
+            style="@style/textViewShowMore"
+            android:text="@string/show_more"
+            app:layout_constraintBottom_toTopOf="@+id/cardViewPressureStats"
+            app:layout_constraintEnd_toEndOf="@+id/cardViewPressureStats" />
+
+
+        <TextView
+            android:id="@+id/textViewPatientInfo"
+            style="@style/titleSmall"
+            android:text="@string/text_label_patient_info"
+            app:layout_constraintBottom_toTopOf="@+id/cardViewPatientInfo"
+            app:layout_constraintStart_toStartOf="@+id/cardViewPatientInfo" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewPatientInfo"
+            style="@style/cardViewSmall"
+            android:layout_marginTop="64dp"
+            app:layout_constraintStart_toStartOf="@+id/cardViewPressureStats"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewPressureStats">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingTop="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="16dp">
+
+                <TextView
+                    android:id="@+id/textViewPatientNameCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/textViewPatientAge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/textViewPatientHeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/textViewPatientWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textViewHealthScore"
+            style="@style/titleSmall"
+            android:text="@string/text_label_health_score"
+            app:layout_constraintBottom_toTopOf="@+id/cardViewHealthScore"
+            app:layout_constraintStart_toStartOf="@+id/cardViewHealthScore" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewHealthScore"
+            style="@style/cardViewSmall"
+            android:layout_marginTop="64dp"
+            app:layout_constraintEnd_toEndOf="@+id/cardViewPressureStats"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewPressureStats" />
+
+        <TextView
+            android:id="@+id/textViewUlcerFormation"
+            style="@style/titleLarge"
+            android:text="@string/text_label_ulcer_formation"
+            app:layout_constraintBottom_toTopOf="@+id/textViewUlcerHead"
+            app:layout_constraintStart_toStartOf="@+id/cardViewUlcerHead" />
+
+        <TextView
+            android:id="@+id/textViewUlcerHead"
+            style="@style/titleSmall"
+            android:text="@string/head"
+            app:layout_constraintBottom_toTopOf="@+id/cardViewUlcerHead"
+            app:layout_constraintStart_toStartOf="@+id/cardViewUlcerHead" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewUlcerHead"
+            style="@style/cardViewWide"
+            android:layout_marginTop="128dp"
+            app:layout_constraintStart_toStartOf="@+id/cardViewPressureStats"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewPatientInfo" />
+
+        <TextView
+            android:id="@+id/textViewUlcerShoulders"
+            style="@style/titleSmall"
+            android:text="@string/shoulder"
+            app:layout_constraintBottom_toTopOf="@+id/cardViewUlcerShoulders"
+            app:layout_constraintStart_toStartOf="@+id/cardViewUlcerShoulders" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewUlcerShoulders"
+            style="@style/cardViewWide"
+            app:layout_constraintStart_toStartOf="@+id/cardViewPressureStats"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewUlcerHead" />
+
+        <TextView
+            android:id="@+id/textViewUlcerBack"
+            style="@style/titleSmall"
+            android:text="@string/back"
+            app:layout_constraintBottom_toTopOf="@+id/cardViewUlcerBack"
+            app:layout_constraintStart_toStartOf="@+id/cardViewUlcerBack" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewUlcerBack"
+            style="@style/cardViewWide"
+            app:layout_constraintStart_toStartOf="@+id/cardViewPressureStats"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewUlcerShoulders" />
+
+        <TextView
+            android:id="@+id/textViewUlcerButt"
+            style="@style/titleSmall"
+            android:text="@string/butt"
+            app:layout_constraintBottom_toTopOf="@+id/cardViewUlcerButt"
+            app:layout_constraintStart_toStartOf="@+id/cardViewUlcerButt" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewUlcerButt"
+            style="@style/cardViewWide"
+            app:layout_constraintStart_toStartOf="@+id/cardViewPressureStats"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewUlcerBack" />
+
+        <TextView
+            android:id="@+id/textViewUlcerCalves"
+            style="@style/titleSmall"
+            android:text="@string/calves"
+            app:layout_constraintBottom_toTopOf="@+id/cardViewUlcerCalves"
+            app:layout_constraintStart_toStartOf="@+id/cardViewUlcerCalves" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewUlcerCalves"
+            style="@style/cardViewWide"
+            app:layout_constraintStart_toStartOf="@+id/cardViewPressureStats"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewUlcerButt" />
+
+        <TextView
+            android:id="@+id/textViewUlcerFeet"
+            style="@style/titleSmall"
+            android:text="@string/feet"
+            app:layout_constraintBottom_toTopOf="@+id/cardViewUlcerFeet"
+            app:layout_constraintStart_toStartOf="@+id/cardViewUlcerFeet" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewUlcerFeet"
+            style="@style/cardViewWide"
+            app:layout_constraintStart_toStartOf="@+id/cardViewPressureStats"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewUlcerCalves" />
+
+        <View
+            android:id="@+id/space"
+            android:layout_width="match_parent"
+            android:layout_height="128dp"
+            app:layout_constraintStart_toStartOf="@+id/cardViewPressureStats"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewUlcerFeet" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
+

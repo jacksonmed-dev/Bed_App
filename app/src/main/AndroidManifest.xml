@@ -13,15 +13,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Bed">
         <activity
-            android:name=".activities.overview.SystemOverview"
-            android:label="@string/title_activity_system_overview"
-            android:theme="@style/Theme.Bed.NoActionBar"></activity>
-        <activity android:name=".activities.main.MainActivity">
+            android:name=".activities.splash.SplashScreenActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.overview.SystemOverview"
+            android:label="@string/title_activity_system_overview"
+            android:theme="@style/Theme.Bed.NoActionBar">
         </activity>
     </application>
 

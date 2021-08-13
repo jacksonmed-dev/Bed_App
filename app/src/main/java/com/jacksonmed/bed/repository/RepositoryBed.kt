@@ -35,8 +35,8 @@ class RepositoryBed {
     // Another potential Bug: GPIO data object has pin: Int, value: Int. The list index might not match
     // with pin value
     fun setBedDrawable(response: Response<Bed>, drawableFragment: DrawableFragment, context: Context){
-        var colorOn: Int = ContextCompat.getColor(context, R.color.jacksonmed_blue)
-        var colorOff: Int = ContextCompat.getColor(context, R.color.jacksonmed_gray)
+        var colorOn: Int = ContextCompat.getColor(context, R.color.primary)
+        var colorOff: Int = ContextCompat.getColor(context, R.color.gray)
 
         val gpio = response.body()?.gpioPins
         if (gpio != null) {

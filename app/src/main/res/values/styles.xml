@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="bottom_navigation_menu_style" parent="Widget.MaterialComponents.BottomNavigationView">
+<!--        <item name="android:background">@color/primary_variant</item>-->
+        <item name="cornerRadius">20dp</item>
+        <item name="itemTextColor">@animator/bottom_navigation_icon_colors</item>
+        <item name="itemIconTint">@animator/bottom_navigation_icon_colors</item>
+        <item name="android:background">@drawable/bottom_navigation_background_curved</item>
+    </style>
+
+    <style name="cardView" parent="Theme.Bed">
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:layout_marginTop">64dp</item>
+        <item name="cardCornerRadius">20dp</item>
+        <item name="cardElevation">20dp</item>
+        <item name="android:padding">16dp</item>
+
+    </style>
+
+    <style name="cardViewLarge" parent="cardView">
+        <item name="android:layout_width">650dp</item>
+        <item name="android:layout_height">550dp</item>
+    </style>
+
+    <style name="cardViewSmall" parent="cardView">
+        <item name="android:layout_width">300dp</item>
+        <item name="android:layout_height">200dp</item>
+    </style>
+
+    <style name="cardViewWide" parent="cardView">
+        <item name="android:layout_width">650dp</item>
+        <item name="android:layout_height">200dp</item>
+    </style>
+
+    <!--        style="@style/bottom_navigation_menu_style"-->
+<!--    app:menu="@menu/bottom_navigation_menu"-->
+
+
+    <style name="titleLarge" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">24sp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="titleSmall" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="textViewShowMore" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/secondary</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="button" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">20dp</item>
+        <item name="android:backgroundTint">@color/secondary_variant</item>
+    </style>
+</resources>

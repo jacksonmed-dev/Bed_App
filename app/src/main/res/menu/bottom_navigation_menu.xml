@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/patientFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_person_outline_24"
+        android:title="@string/text_label_patient" />
+    <item
+        android:id="@+id/bedFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_single_bed_24"
+        android:title="@string/text_label_bed"/>
+
+    <item
+        android:id="@+id/settingsFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="@string/text_label_settings"/>
+</menu>
