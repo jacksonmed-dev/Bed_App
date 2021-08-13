@@ -37,5 +37,6 @@
     <string name="text_label_massage">Massage</string>
     <string name="text_label_bed_status">Bed Status</string>
     <string name="text_label_bed_response">Bed Response</string>
+    <string name="body_3d">Body 3D</string>
 
 </resources>

@@ -81,8 +81,8 @@ class PatientFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.imageView.setImageResource(R.drawable.body_3d)
-        binding.imageView.tag = R.drawable.body_3d
+        binding.imageViewBody3D.setImageResource(R.drawable.body_3d)
+        binding.imageViewBody3D.tag = R.drawable.body_3d
 
 
 //        binding.buttonGetPressure.setOnClickListener {
@@ -96,7 +96,7 @@ class PatientFragment : Fragment() {
 //        }
 
         binding.checkBox.setOnClickListener {
-            val imgView: ImageView = binding.imageView
+            val imgView: ImageView = binding.imageViewBody3D
             if(imgView.tag == R.drawable.body_back_3d) {
                 imgView.setImageResource(R.drawable.body_3d)
                 imgView.tag = R.drawable.body_3d
@@ -131,7 +131,7 @@ class PatientFragment : Fragment() {
     }
 
     private fun changeImgHue(hue: Int, heightStart: Int, heightEnd: Int){
-        val imgView: ImageView = binding.imageView
+        val imgView: ImageView = binding.imageViewBody3D
         val drawable: BitmapDrawable = imgView.drawable as BitmapDrawable
         val bm: Bitmap = Hue.changeHue(drawable.bitmap, hue, drawable.bitmap.width, heightStart, heightEnd)
 

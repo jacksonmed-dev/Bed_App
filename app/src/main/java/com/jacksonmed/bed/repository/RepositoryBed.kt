@@ -1,16 +1,14 @@
 package com.jacksonmed.bed.repository
 
 import android.content.Context
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import com.jacksonmed.bed.R
-import com.jacksonmed.bed.activities.overview.bed.Drawable.DrawableFragment
+import com.jacksonmed.bed.activities.overview.bed.drawable.DrawableFragment
 import com.jacksonmed.bed.api.ApiResponse
 import com.jacksonmed.bed.api.RetrofitInstance
 import com.jacksonmed.bed.api.checkApiResponse
 import com.jacksonmed.bed.model.Bed
-import com.jacksonmed.bed.model.PatientPressure
 import com.jacksonmed.bed.model.StatusResponse
 import retrofit2.Response
 

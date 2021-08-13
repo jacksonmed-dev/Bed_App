@@ -40,7 +40,7 @@
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/drawableBedFragment"
-                    android:name="com.jacksonmed.bed.activities.overview.bed.Drawable.DrawableFragment"
+                    android:name="com.jacksonmed.bed.activities.overview.bed.drawable.DrawableFragment"
                     android:layout_width="500dp"
                     android:layout_height="500dp"
                     app:layout_constraintBottom_toBottomOf="parent"

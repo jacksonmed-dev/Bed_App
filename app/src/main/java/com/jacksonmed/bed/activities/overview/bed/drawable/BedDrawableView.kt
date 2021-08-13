@@ -1,13 +1,10 @@
-package com.jacksonmed.bed.activities.overview.bed.Drawable
+package com.jacksonmed.bed.activities.overview.bed.drawable
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.RectShape
 import android.view.View
-import androidx.core.content.ContextCompat
-import com.jacksonmed.bed.R
 
 class BedDrawableView(context: Context): View(context) {
 
@@ -44,10 +41,8 @@ class BedDrawableView(context: Context): View(context) {
 
     fun changeRectColor(index: Int, color: Int){
         if (drawableRectangle.size == 0) return
-        var rectangle: ShapeDrawable = drawableRectangle.elementAt(index)
-        var temp = rectangle.paint.color
-        rectangle.getPaint().setColor(color)
-        var temp2 =  rectangle.paint.color
+        val rectangle: ShapeDrawable = drawableRectangle.elementAt(index)
+        rectangle.paint.color = color
         drawableRectangle.set(index, rectangle)
         invalidate()
     }

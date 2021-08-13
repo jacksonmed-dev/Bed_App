@@ -32,14 +32,15 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/imageViewBody3D"
                     android:layout_width="500dp"
                     android:layout_height="500dp"
                     android:src="@drawable/body_3d"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/linearLayout"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="@string/body_3d"/>
 
                 <LinearLayout
                     android:id="@+id/linearLayout"
@@ -56,42 +57,37 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:text="TextView" />
+                        android:text="" />
 
                     <TextView
                         android:id="@+id/textViewShoulderPressure"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:text="TextView" />
+                        android:layout_weight="1" />
 
                     <TextView
                         android:id="@+id/textViewBackPressure"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:text="TextView" />
+                        android:layout_weight="1" />
 
                     <TextView
                         android:id="@+id/textViewButtPressure"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:text="TextView" />
+                        android:layout_weight="1" />
 
                     <TextView
                         android:id="@+id/textViewCalvesPressure"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:text="TextView" />
+                        android:layout_weight="1" />
 
                     <TextView
                         android:id="@+id/textViewFeetPressure"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:text="TextView" />
+                        android:layout_weight="1" />
                 </LinearLayout>
 
                 <CheckBox
@@ -142,26 +138,22 @@
                 <TextView
                     android:id="@+id/textViewPatientNameCard"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/textViewPatientAge"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/textViewPatientHeight"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/textViewPatientWeight"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

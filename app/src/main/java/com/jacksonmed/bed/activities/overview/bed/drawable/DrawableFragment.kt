@@ -1,4 +1,4 @@
-package com.jacksonmed.bed.activities.overview.bed.Drawable
+package com.jacksonmed.bed.activities.overview.bed.drawable
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.jacksonmed.bed.R
 
 import com.jacksonmed.bed.activities.overview.bed.BedViewModel
-import com.jacksonmed.bed.activities.overview.bed.BedViewModelFactory
 import com.jacksonmed.bed.activities.overview.bed.DrawableFragmentViewModel
 import com.jacksonmed.bed.activities.overview.bed.DrawableFragmentViewModelFactory
 import com.jacksonmed.bed.repository.RepositoryBed
