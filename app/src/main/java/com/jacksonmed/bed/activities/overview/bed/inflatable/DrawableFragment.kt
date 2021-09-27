@@ -1,4 +1,4 @@
-package com.jacksonmed.bed.activities.overview.bed.drawable
+package com.jacksonmed.bed.activities.overview.bed.inflatable
 
 import android.os.Bundle
 import android.view.LayoutInflater

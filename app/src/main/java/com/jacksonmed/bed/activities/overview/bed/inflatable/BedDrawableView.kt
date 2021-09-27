@@ -1,4 +1,4 @@
-package com.jacksonmed.bed.activities.overview.bed.drawable
+package com.jacksonmed.bed.activities.overview.bed.inflatable
 
 import android.content.Context
 import android.graphics.Canvas

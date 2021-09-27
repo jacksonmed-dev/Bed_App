@@ -9,7 +9,7 @@ data class ApiResponse<T>(
     val error: String?
 )
 
-suspend inline fun <reified T> checkApiResponse(response: Response<T>): MutableLiveData<ApiResponse<T>> {
+inline fun <reified T> checkApiResponse(response: Response<T>): MutableLiveData<ApiResponse<T>> {
     val responseLiveData: MutableLiveData<ApiResponse<T>> = MutableLiveData<ApiResponse<T>>()
     var exception: String? = null
 
@@ -18,7 +18,6 @@ suspend inline fun <reified T> checkApiResponse(response: Response<T>): MutableL
     }else {
         responseLiveData.postValue(ApiResponse(null, response.message()))
     }
-
     return responseLiveData
 }
 

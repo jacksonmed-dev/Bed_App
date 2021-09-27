@@ -40,7 +40,7 @@
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/drawableBedFragment"
-                    android:name="com.jacksonmed.bed.activities.overview.bed.drawable.DrawableFragment"
+                    android:name="com.jacksonmed.bed.activities.overview.bed.inflatable.DrawableFragment"
                     android:layout_width="500dp"
                     android:layout_height="500dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -56,6 +56,46 @@
                     android:text="Get Bed Status"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textViewBedData"
+            style="@style/titleLarge"
+            android:text="@string/text_label_bed_status"
+            app:layout_constraintBottom_toTopOf="@+id/cardViewBedData"
+            app:layout_constraintStart_toStartOf="@+id/cardViewBedData" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewBedData"
+            style="@style/cardViewLarge"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewMassage">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageViewBedData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/body_3d" />
+
+                <Switch
+                    android:id="@+id/switch_bedData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Switch"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
@@ -119,6 +159,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
