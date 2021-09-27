@@ -14,6 +14,7 @@ import com.jacksonmed.bed.databinding.ActivitySystemOverviewBinding
 import com.jacksonmed.bed.repository.RepositoryBed
 
 class SystemOverview : AppCompatActivity() {
+    //test commit message
 
     private lateinit var binding: ActivitySystemOverviewBinding
     private lateinit var viewModel: BedViewModel
