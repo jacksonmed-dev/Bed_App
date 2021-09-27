@@ -3,6 +3,7 @@ package com.example.bluetoothdemo.bluetooth
 import android.bluetooth.BluetoothSocket
 import android.content.Context
 import android.os.Handler
+import com.jacksonmed.bed.utils.bluetooth.BluetoothResult
 
 private const val TAG = "MY_APP_DEBUG_TAG"
 // https://developer.android.com/guide/topics/connectivity/bluetooth/transfer-data
