@@ -27,7 +27,7 @@ import org.json.JSONObject
 import retrofit2.Response
 import java.util.*
 
-class BedViewModel(private val repository: RepositoryBed):ViewModel(){
+class BedBluetoothViewModel(private val repository: RepositoryBed):ViewModel(){
     val startMassageResponse: MediatorLiveData<ApiResponse<StatusResponse>> = MediatorLiveData()
     fun startMassage(): LiveData<ApiResponse<StatusResponse>> {
         viewModelScope.launch {
@@ -77,9 +77,6 @@ class BedViewModel(private val repository: RepositoryBed):ViewModel(){
             if(firstChar in switchChars){
                 switchChar = firstChar
                 bluetoothString = bluetoothString.plus(message.drop(1))
-//                if (!"*".equals(lastChar))
-//                    return
-                return
             }
 
             if (lastChar.equals(messageLastChar)){
@@ -88,28 +85,24 @@ class BedViewModel(private val repository: RepositoryBed):ViewModel(){
                 else
                     bluetoothString = bluetoothString.dropLast(1)
                 when(switchChar) {
-                    "!" -> {
-                        if ("*".equals(messageLastChar)) {
-//                            bluetoothString = bluetoothString.plus(message)
+                    "@" -> {
+                        if ("]" in message) {
+                            bluetoothString = bluetoothString.plus(message)
                             val temp = bluetoothString
-                            bluetoothString = bluetoothString.drop(1).dropLast(1)
-//                            val result: List<Int> = bluetoothString.removeSurrounding("[", "]").split(", ").map { it.toInt()}
-                            val result: List<Int> = bluetoothString.split(", ").map { it.toInt()}
+                            val result: List<Int> = bluetoothString.removeSurrounding("[", "]").split(", ").map { it.toInt()}
                             calculateBedBitMap(result)
-//                            bluetoothResponse.value = bluetoothString
+                            bluetoothResponse.value = bluetoothString
                             bluetoothString = ""
                             switchChar = ""
                             return
                         }
 
                     }
-                    "@" -> {
-                        if ("*".equals(messageLastChar)) {
-//                            bluetoothResponse.value = bluetoothString
-                            bluetoothString = ""
-                            switchChar = ""
-                            return
-                        }
+                    "!" -> {
+                        bluetoothResponse.value = bluetoothString
+                        bluetoothString = ""
+                        switchChar = ""
+                        return
                     }
                 }
             }

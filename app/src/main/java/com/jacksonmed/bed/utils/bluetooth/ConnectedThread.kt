@@ -12,7 +12,7 @@ class ConnectedThread(private val handler: Handler, private val m_bluetoothSocke
 
     private lateinit var mmInStream: InputStream
     private lateinit var mmOutStream: OutputStream
-    private val mmBuffer: ByteArray = ByteArray(1024) // mmBuffer store for the stream
+    private var mmBuffer: ByteArray = ByteArray(1024) // mmBuffer store for the stream
     private var m_isConnected: Boolean = true
     private val TAG: String = "Connected Thread"
 
@@ -34,6 +34,8 @@ class ConnectedThread(private val handler: Handler, private val m_bluetoothSocke
         // Keep listening to the InputStream until an exception occurs.
         while (true) {
             // Read from the InputStream.
+             val mmBuffer2: ByteArray = ByteArray(1024) // mmBuffer store for the stream
+
             numBytes = try {
                 mmInStream.read(mmBuffer)
             } catch (e: IOException) {
@@ -45,6 +47,7 @@ class ConnectedThread(private val handler: Handler, private val m_bluetoothSocke
             val readMsg = handler.obtainMessage(
                 MESSAGE_READ, numBytes, -1,
                 mmBuffer)
+            mmBuffer = ByteArray(1024)
             readMsg.sendToTarget()
         }
     }

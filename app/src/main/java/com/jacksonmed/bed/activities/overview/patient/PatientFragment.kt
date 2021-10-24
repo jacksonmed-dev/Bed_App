@@ -1,8 +1,12 @@
 package com.jacksonmed.bed.activities.overview.patient
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +22,7 @@ import com.jacksonmed.bed.utils.Constants.Companion.MAX_PRESSURE
 import com.jacksonmed.bed.utils.Hue
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import com.example.bluetoothdemo.bluetooth.MyBluetoothService
 
 import com.jacksonmed.bed.activities.main.MainActivity
 import com.jacksonmed.bed.activities.overview.SystemOverview
@@ -36,7 +41,6 @@ class PatientFragment : Fragment() {
     private var patient: Patient? = null
     private var patientPressure: PatientPressure? = null
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,8 +50,6 @@ class PatientFragment : Fragment() {
         val repository = RepositoryPatient()
         val viewModelFactory = PatientViewModelFactory(repository)
         patientViewModel = ViewModelProvider(this, viewModelFactory).get(PatientViewModel::class.java)
-
-
 
         patientViewModel.getPatientInfo().observe(viewLifecycleOwner, object : Observer<ApiResponse<Patient>> {
             override fun onChanged(apiResponse: ApiResponse<Patient>) {
