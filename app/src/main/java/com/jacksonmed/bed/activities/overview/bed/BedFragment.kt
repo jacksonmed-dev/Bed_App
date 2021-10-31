@@ -2,10 +2,6 @@ package com.jacksonmed.bed.activities.overview.bed
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.os.Message
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,22 +10,19 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.example.bluetoothdemo.bluetooth.MyBluetoothService
-import com.here.oksse.OkSse
-import com.here.oksse.ServerSentEvent
 import com.jacksonmed.bed.activities.overview.bed.inflatable.BedDrawableView
 import com.jacksonmed.bed.api.ApiResponse
 import com.jacksonmed.bed.api.BluetoothResponse
 import com.jacksonmed.bed.databinding.FragmentBedBinding
 import com.jacksonmed.bed.model.StatusResponse
-import com.jacksonmed.bed.utils.Constants.Companion.SENSOR_URL
 import com.jacksonmed.bed.utils.bluetooth.BluetoothHandler
-import okhttp3.Request
-import okhttp3.Response
+import com.jacksonmed.bed.utils.bluetooth.BluetoothViewModel
 
 
 class BedFragment : Fragment() {
     private val isBluetooth = true
     private val viewModel: BedViewModel by activityViewModels()
+    private val bluetoothViewModel: BluetoothViewModel by activityViewModels()
     private var _binding: FragmentBedBinding? = null
 
     private lateinit var bedDrawableView: BedDrawableView
@@ -54,7 +47,7 @@ class BedFragment : Fragment() {
         _binding = FragmentBedBinding.inflate(inflater, container, false)
 
         bedDrawableView = BedDrawableView(mContext)
-        bluetoothService = MyBluetoothService(BluetoothHandler(viewModel.bluetoothResponse), m_address, mContext)
+        bluetoothService = MyBluetoothService(BluetoothHandler(bluetoothViewModel.bluetoothResponse), m_address, mContext)
         bluetoothService.connect()
 
         return binding.root
@@ -67,7 +60,7 @@ class BedFragment : Fragment() {
         bedDrawableView.createRectangles(20)
 
 
-        viewModel.bluetoothResponse.observe(viewLifecycleOwner, object: Observer<BluetoothResponse<String>> {
+        bluetoothViewModel.bluetoothResponse.observe(viewLifecycleOwner, object: Observer<BluetoothResponse<String>> {
             override fun onChanged(t: BluetoothResponse<String>?) {
                 binding.textViewResponse.text = t?.response
 

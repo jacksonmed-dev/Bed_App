@@ -19,12 +19,10 @@ class BluetoothHandler(bluetoothResponse: MutableLiveData<BluetoothResponse<Stri
         val data: ByteArray = removeBytePadding(msg.obj as ByteArray)
         var message: String = String(data)
 
-//        if(message.length == 0) return
         if(message.length == 0) {
             val temp = checkBluetoothResponse("Hello World")
             val temp2 = checkBluetoothResponse("Hello World")
             bluetoothResponse.postValue(checkBluetoothResponse("Hello World"))
-//            response.postValue(temp2)
             return
         }
 
