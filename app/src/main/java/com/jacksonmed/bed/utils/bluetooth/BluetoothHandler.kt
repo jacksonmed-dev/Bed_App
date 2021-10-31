@@ -6,7 +6,7 @@ import android.os.Message
 import androidx.lifecycle.MutableLiveData
 import com.jacksonmed.bed.api.BluetoothResponse
 import com.jacksonmed.bed.api.checkBluetoothResponse
-import com.jacksonmed.bed.utils.HelperFunctions.Companion.removeBytePadding
+import com.jacksonmed.bed.utils.bluetooth.HelperFunctions.Companion.removeBytePadding
 
 class BluetoothHandler(bluetoothResponse: MutableLiveData<BluetoothResponse<String>>): Handler(Looper.getMainLooper()) {
     var bluetoothString: String = ""

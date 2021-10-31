@@ -15,8 +15,10 @@ import com.jacksonmed.bed.api.ApiResponse
 import com.jacksonmed.bed.api.BluetoothResponse
 import com.jacksonmed.bed.databinding.FragmentBedBinding
 import com.jacksonmed.bed.model.StatusResponse
+import com.jacksonmed.bed.utils.bluetooth.BluetoothConstants.Companion.BLUETOOTH_ADDRESS
 import com.jacksonmed.bed.utils.bluetooth.BluetoothHandler
 import com.jacksonmed.bed.utils.bluetooth.BluetoothViewModel
+import com.jacksonmed.bed.utils.bluetooth.HelperFunctions.Companion.generateBluetoothByteArray
 
 
 class BedFragment : Fragment() {
@@ -29,9 +31,6 @@ class BedFragment : Fragment() {
 
     private lateinit var bluetoothService: MyBluetoothService
     private lateinit var mContext: Context
-
-//    private val m_address: String = "E4:5F:01:02:81:7F"
-    private val m_address: String = "E4:5F:01:09:59:C0"
 
     private val binding get() = _binding!!
 
@@ -47,7 +46,7 @@ class BedFragment : Fragment() {
         _binding = FragmentBedBinding.inflate(inflater, container, false)
 
         bedDrawableView = BedDrawableView(mContext)
-        bluetoothService = MyBluetoothService(BluetoothHandler(bluetoothViewModel.bluetoothResponse), m_address, mContext)
+        bluetoothService = MyBluetoothService(BluetoothHandler(bluetoothViewModel.bluetoothResponse), BLUETOOTH_ADDRESS, mContext)
         bluetoothService.connect()
 
         return binding.root
@@ -56,20 +55,17 @@ class BedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         bedDrawableView.createRectangles(20)
-
 
         bluetoothViewModel.bluetoothResponse.observe(viewLifecycleOwner, object: Observer<BluetoothResponse<String>> {
             override fun onChanged(t: BluetoothResponse<String>?) {
                 binding.textViewResponse.text = t?.response
-
             }
         })
 
         binding.switchMassage.setOnCheckedChangeListener {_ , isChecked ->
             if(isChecked) {
-                if(isBluetooth) bluetoothService.sendMessage("@1".toByteArray())
+                if(isBluetooth) bluetoothService.sendMessage(generateBluetoothByteArray("1"))
                 else {
                     viewModel.startMassage().observe(
                         viewLifecycleOwner,
@@ -90,7 +86,7 @@ class BedFragment : Fragment() {
                         })
                 }
             }else {
-                if(isBluetooth) bluetoothService.sendMessage("@0".toByteArray())
+                if(isBluetooth) bluetoothService.sendMessage(generateBluetoothByteArray("0"))
                 else {
                     viewModel.stopMassage().observe(
                         viewLifecycleOwner,

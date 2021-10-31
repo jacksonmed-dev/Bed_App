@@ -1,4 +1,7 @@
-package com.jacksonmed.bed.utils
+package com.jacksonmed.bed.utils.bluetooth
+
+import com.jacksonmed.bed.utils.bluetooth.BluetoothConstants.Companion.FIRST_CHAR
+import com.jacksonmed.bed.utils.bluetooth.BluetoothConstants.Companion.LAST_CHAR
 
 class HelperFunctions {
     companion object {
@@ -13,6 +16,10 @@ class HelperFunctions {
                 result.add(byte)
             }
             return result.toByteArray()
+        }
+
+        fun generateBluetoothByteArray(string: String): ByteArray {
+            return (FIRST_CHAR + string + LAST_CHAR).toByteArray()
         }
     }
 }
