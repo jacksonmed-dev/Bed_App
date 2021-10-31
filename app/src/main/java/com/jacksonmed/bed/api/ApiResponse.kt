@@ -27,16 +27,13 @@ inline fun <reified T> checkApiResponse(response: Response<T>): MutableLiveData<
 }
 
 inline fun <reified T> checkBluetoothResponse(response: T): BluetoothResponse<T> {
-//    val bluetoothLiveData: MutableLiveData<BluetoothResponse<T>> = MutableLiveData<BluetoothResponse<T>>()
     val bluetoothResponse: BluetoothResponse<T>
     var exception: String? = null
 
     if(response is T){
         bluetoothResponse = BluetoothResponse(response, exception)
-//        bluetoothLiveData.postValue(newResponse)
     }else {
         bluetoothResponse = BluetoothResponse(null, "Invalid bluetooth response. No value received")
-//        bluetoothLiveData.postValue(BluetoothResponse(null, "Invalid bluetooth response. No value received"))
     }
     return bluetoothResponse
 }
