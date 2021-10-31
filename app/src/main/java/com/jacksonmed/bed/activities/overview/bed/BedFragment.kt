@@ -18,9 +18,11 @@ import com.here.oksse.OkSse
 import com.here.oksse.ServerSentEvent
 import com.jacksonmed.bed.activities.overview.bed.inflatable.BedDrawableView
 import com.jacksonmed.bed.api.ApiResponse
+import com.jacksonmed.bed.api.BluetoothResponse
 import com.jacksonmed.bed.databinding.FragmentBedBinding
 import com.jacksonmed.bed.model.StatusResponse
 import com.jacksonmed.bed.utils.Constants.Companion.SENSOR_URL
+import com.jacksonmed.bed.utils.bluetooth.BluetoothHandler
 import okhttp3.Request
 import okhttp3.Response
 
@@ -34,9 +36,8 @@ class BedFragment : Fragment() {
     private lateinit var bluetoothService: MyBluetoothService
     private lateinit var mContext: Context
 
-    private val m_address: String = "E4:5F:01:02:81:7F"
-
-//    private val m_address: String = "E4:5F:01:09:59:C0"
+//    private val m_address: String = "E4:5F:01:02:81:7F"
+    private val m_address: String = "E4:5F:01:09:59:C0"
 
     private val binding get() = _binding!!
 
@@ -50,28 +51,25 @@ class BedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBedBinding.inflate(inflater, container, false)
+
+        bedDrawableView = BedDrawableView(mContext)
+        bluetoothService = MyBluetoothService(BluetoothHandler(viewModel.bluetoothResponse), m_address, mContext)
+        bluetoothService.connect()
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val handler = object : Handler(Looper.getMainLooper()) {
-            override fun handleMessage(msg: Message) {
-                val data: ByteArray = msg.obj as ByteArray
-                val message: String = String(data)
-                val x = 5
-                // send the data to UI
-            }
-        }
-        bedDrawableView = BedDrawableView(mContext)
-        bedDrawableView.createRectangles(20)
-        bluetoothService = MyBluetoothService(viewModel.handler, m_address, mContext)
-        bluetoothService.connect()
 
-        viewModel.bluetoothResponse.observe(viewLifecycleOwner, object: Observer<String> {
-            override fun onChanged(t: String?) {
-                binding.textViewResponse.text = t
+        bedDrawableView.createRectangles(20)
+
+
+        viewModel.bluetoothResponse.observe(viewLifecycleOwner, object: Observer<BluetoothResponse<String>> {
+            override fun onChanged(t: BluetoothResponse<String>?) {
+                binding.textViewResponse.text = t?.response
+
             }
         })
 
@@ -117,57 +115,6 @@ class BedFragment : Fragment() {
             }
         }
 
-
-
-
-
-
-
-//        var request: Request = Request.Builder().url(SENSOR_URL).build()
-//        var okSse: OkSse = OkSse()
-//        var sse: ServerSentEvent = okSse.newServerSentEvent(request, object: ServerSentEvent.Listener {
-//            override fun onOpen(sse: ServerSentEvent?, response: Response?) {
-//                Log.d("Open", "Connection Open")
-//            }
-//
-//            override fun onMessage(
-//                sse: ServerSentEvent?,
-//                id: String?,
-//                event: String?,
-//                message: String?
-//            ) {
-//                Log.d("Open", message!!)
-//            }
-//
-//            override fun onComment(sse: ServerSentEvent?, comment: String?) {
-//                Log.d("Open", "Connection Open")
-//            }
-//
-//            override fun onRetryTime(sse: ServerSentEvent?, milliseconds: Long): Boolean {
-//                Log.d("Open", "Connection Open")
-//                return true
-//            }
-//
-//            override fun onRetryError(
-//                sse: ServerSentEvent?,
-//                throwable: Throwable?,
-//                response: Response?
-//            ): Boolean {
-//                Log.d("Open", "Connection Open")
-//                return true
-//            }
-//
-//            override fun onClosed(sse: ServerSentEvent?) {
-//                Log.d("Open", "Connection Open")
-//            }
-//            // Change this function. I set the request to be null for demo purposes
-//            override fun onPreRetry(sse: ServerSentEvent?, originalRequest: Request?): Request? {
-//                var request: Request? = null
-//                Log.d("Open", "Connection Open")
-//                return request
-//            }
-//
-//        })
 
 
     }
