@@ -12,7 +12,6 @@ class BluetoothViewModel():ViewModel(){
     val bedDataBitmap: MutableLiveData<Bitmap> = MutableLiveData()
     val bluetoothResponse: MediatorLiveData<BluetoothResponse<String>> = MediatorLiveData()
 
-
     fun calculateBedBitMap(data: List<Int>) {
 //        var readings: JSONArray = JSONObject(message!!).getJSONArray("readings").getJSONArray(0)
         var readingsArray: IntArray = IntArray(data.size) { 0 }
