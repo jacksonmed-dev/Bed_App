@@ -28,6 +28,7 @@ import okhttp3.Response
 
 
 class BedFragment : Fragment() {
+    private val isBluetooth = true
     private val viewModel: BedViewModel by activityViewModels()
     private var _binding: FragmentBedBinding? = null
 
@@ -75,35 +76,53 @@ class BedFragment : Fragment() {
 
         binding.switchMassage.setOnCheckedChangeListener {_ , isChecked ->
             if(isChecked) {
-                bluetoothService.sendMessage("@1".toByteArray())
-//                viewModel.startMassage().observe(viewLifecycleOwner, object: Observer<ApiResponse<StatusResponse>> {
-//                    override fun onChanged(apiResponse: ApiResponse<StatusResponse>) {
-//                        if (apiResponse.error != null && apiResponse.response == null) {   // Call unsuccessful
-//                            Toast.makeText(context, apiResponse.error.toString(), Toast.LENGTH_LONG).show()
-//                            return
-//                        }
-//                        binding.textViewResponse.text = apiResponse.response?.body()?.toString()
-//                    }
-//
-//                })
+                if(isBluetooth) bluetoothService.sendMessage("@1".toByteArray())
+                else {
+                    viewModel.startMassage().observe(
+                        viewLifecycleOwner,
+                        object : Observer<ApiResponse<StatusResponse>> {
+                            override fun onChanged(apiResponse: ApiResponse<StatusResponse>) {
+                                if (apiResponse.error != null && apiResponse.response == null) {   // Call unsuccessful
+                                    Toast.makeText(
+                                        context,
+                                        apiResponse.error.toString(),
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                    return
+                                }
+                                binding.textViewResponse.text =
+                                    apiResponse.response?.body()?.toString()
+                            }
+
+                        })
+                }
             }else {
-                bluetoothService.sendMessage("@0".toByteArray())
-//                viewModel.stopMassage().observe(viewLifecycleOwner, object: Observer<ApiResponse<StatusResponse>> {
-//                    override fun onChanged(apiResponse: ApiResponse<StatusResponse>) {
-//                        if (apiResponse.error != null && apiResponse.response == null) {   // Call unsuccessful
-//                            Toast.makeText(context, apiResponse.error.toString(), Toast.LENGTH_LONG).show()
-//                            return
-//                        }
-//                        binding.textViewResponse.text = apiResponse.response?.body()?.toString()
-//                    }
-//                })
+                if(isBluetooth) bluetoothService.sendMessage("@0".toByteArray())
+                else {
+                    viewModel.stopMassage().observe(
+                        viewLifecycleOwner,
+                        object : Observer<ApiResponse<StatusResponse>> {
+                            override fun onChanged(apiResponse: ApiResponse<StatusResponse>) {
+                                if (apiResponse.error != null && apiResponse.response == null) {   // Call unsuccessful
+                                    Toast.makeText(
+                                        context,
+                                        apiResponse.error.toString(),
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                    return
+                                }
+                                binding.textViewResponse.text =
+                                    apiResponse.response?.body()?.toString()
+                            }
+                        })
+                }
             }
         }
 
         binding.buttonBedStatus.setOnClickListener {
             val data = "#".toByteArray()
-            bluetoothService.sendMessage(data)
-//            viewModel.getBedStatus()
+            if(isBluetooth) bluetoothService.sendMessage(data)
+            else viewModel.getBedStatus()
         }
 
         binding.switchBedData.setOnCheckedChangeListener{_, isChecked ->
@@ -114,9 +133,6 @@ class BedFragment : Fragment() {
                 })
             }
         }
-
-
-
     }
 
     companion object {

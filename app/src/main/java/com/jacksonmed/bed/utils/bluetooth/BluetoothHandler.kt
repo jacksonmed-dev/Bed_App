@@ -13,7 +13,8 @@ class BluetoothHandler(bluetoothResponse: MutableLiveData<BluetoothResponse<Stri
     var switchChar: String = ""
     val switchChars: Array<String> = arrayOf("!", "@")
     val lastChar: String = "*"
-    var response = bluetoothResponse
+    var bluetoothResponse = bluetoothResponse
+
     override fun handleMessage(msg: Message) {
         val data: ByteArray = removeBytePadding(msg.obj as ByteArray)
         var message: String = String(data)
@@ -22,7 +23,7 @@ class BluetoothHandler(bluetoothResponse: MutableLiveData<BluetoothResponse<Stri
         if(message.length == 0) {
             val temp = checkBluetoothResponse("Hello World")
             val temp2 = checkBluetoothResponse("Hello World")
-            response.postValue(checkBluetoothResponse("Hello World"))
+            bluetoothResponse.postValue(checkBluetoothResponse("Hello World"))
 //            response.postValue(temp2)
             return
         }
@@ -51,7 +52,7 @@ class BluetoothHandler(bluetoothResponse: MutableLiveData<BluetoothResponse<Stri
 //                        calculateBedBitMap(result)
                         bluetoothString = ""
                         switchChar = ""
-                        response.postValue(checkBluetoothResponse(bluetoothString))
+                        bluetoothResponse.postValue(checkBluetoothResponse(bluetoothString))
                         return
                     }
 
