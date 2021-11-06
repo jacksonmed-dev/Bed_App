@@ -9,13 +9,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import com.example.bluetoothdemo.bluetooth.MyBluetoothService
+import com.jacksonmed.bed.utils.bluetooth.service.MyBluetoothService
 import com.jacksonmed.bed.activities.overview.bed.inflatable.BedDrawableView
 import com.jacksonmed.bed.api.ApiResponse
 import com.jacksonmed.bed.api.BluetoothResponse
 import com.jacksonmed.bed.databinding.FragmentBedBinding
 import com.jacksonmed.bed.model.StatusResponse
-import com.jacksonmed.bed.utils.bluetooth.BluetoothConstants.Companion.BLUETOOTH_ADDRESS
+import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.BLUETOOTH_ADDRESS
 import com.jacksonmed.bed.utils.bluetooth.BluetoothHandler
 import com.jacksonmed.bed.utils.bluetooth.BluetoothViewModel
 import com.jacksonmed.bed.utils.bluetooth.HelperFunctions.Companion.generateBluetoothByteArray

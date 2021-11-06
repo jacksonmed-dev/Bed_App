@@ -1,4 +1,4 @@
-package com.jacksonmed.bed.utils.bluetooth
+package com.jacksonmed.bed.utils.bluetooth.util
 
 class BluetoothConstants {
     companion object {

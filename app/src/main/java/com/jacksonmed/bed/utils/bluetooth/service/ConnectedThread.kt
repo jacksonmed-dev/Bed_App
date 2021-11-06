@@ -1,4 +1,4 @@
-package com.example.bluetoothdemo.bluetooth
+package com.jacksonmed.bed.utils.bluetooth.service
 
 import android.bluetooth.BluetoothSocket
 import android.os.Bundle

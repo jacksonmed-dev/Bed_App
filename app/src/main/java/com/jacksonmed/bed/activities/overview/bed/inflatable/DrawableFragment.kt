@@ -4,21 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.jacksonmed.bed.R
 
 import com.jacksonmed.bed.activities.overview.bed.BedViewModel
 import com.jacksonmed.bed.activities.overview.bed.DrawableFragmentViewModel
 import com.jacksonmed.bed.activities.overview.bed.DrawableFragmentViewModelFactory
-import com.jacksonmed.bed.model.Bed
 import com.jacksonmed.bed.repository.RepositoryBed
-
-import kotlinx.serialization.*
-import kotlinx.serialization.json.Json
 
 
 class DrawableFragment: Fragment() {

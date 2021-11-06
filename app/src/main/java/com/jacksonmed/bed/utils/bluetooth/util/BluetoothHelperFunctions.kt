@@ -1,7 +1,7 @@
 package com.jacksonmed.bed.utils.bluetooth
 
-import com.jacksonmed.bed.utils.bluetooth.BluetoothConstants.Companion.FIRST_CHAR
-import com.jacksonmed.bed.utils.bluetooth.BluetoothConstants.Companion.LAST_CHAR
+import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.FIRST_CHAR
+import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.LAST_CHAR
 
 class HelperFunctions {
     companion object {

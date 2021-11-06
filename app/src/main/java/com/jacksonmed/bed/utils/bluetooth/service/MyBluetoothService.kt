@@ -1,9 +1,8 @@
-package com.example.bluetoothdemo.bluetooth
+package com.jacksonmed.bed.utils.bluetooth.service
 
 import android.bluetooth.BluetoothSocket
 import android.content.Context
 import android.os.Handler
-import com.jacksonmed.bed.utils.bluetooth.BluetoothResult
 
 private const val TAG = "MY_APP_DEBUG_TAG"
 // https://developer.android.com/guide/topics/connectivity/bluetooth/transfer-data

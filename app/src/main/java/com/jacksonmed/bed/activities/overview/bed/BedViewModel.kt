@@ -1,34 +1,20 @@
 package com.jacksonmed.bed.activities.overview.bed
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.os.Handler
-import android.os.Looper
-import android.os.Message
-import android.util.Log
-import android.widget.ImageView
 import androidx.lifecycle.*
-import com.example.bluetoothdemo.bluetooth.MyBluetoothService
 import com.here.oksse.OkSse
-import com.here.oksse.ServerSentEvent
 import com.jacksonmed.bed.api.ApiResponse
 import com.jacksonmed.bed.api.BluetoothResponse
-import com.jacksonmed.bed.api.SseSample
 import com.jacksonmed.bed.model.Bed
-import com.jacksonmed.bed.model.PatientPressure
 import com.jacksonmed.bed.model.StatusResponse
 import com.jacksonmed.bed.repository.RepositoryBed
-import com.jacksonmed.bed.utils.Constants
 import com.jacksonmed.bed.utils.Constants.Companion.SENSOR_URL
 import com.jacksonmed.bed.utils.PressureBitmap
 import com.jacksonmed.bed.utils.SseListener
 import kotlinx.coroutines.launch
 import okhttp3.Request
-import org.json.JSONArray
-import org.json.JSONObject
 import retrofit2.Response
-import java.util.*
 
 class BedViewModel(private val repository: RepositoryBed):ViewModel(){
 

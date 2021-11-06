@@ -1,4 +1,4 @@
-package com.jacksonmed.bed.utils.bluetooth
+package com.jacksonmed.bed.utils.bluetooth.service
 
 import android.bluetooth.BluetoothSocket
 
