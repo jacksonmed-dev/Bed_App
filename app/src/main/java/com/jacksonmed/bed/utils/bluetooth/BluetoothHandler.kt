@@ -24,7 +24,6 @@ class BluetoothHandler(bluetoothResponse: MutableLiveData<BluetoothResponse<Stri
         var message: String = String(data)
 
         if(message.length == 0) {
-            bluetoothResponse.postValue(checkBluetoothResponse("Hello World"))
             return
         }
 
@@ -34,50 +33,31 @@ class BluetoothHandler(bluetoothResponse: MutableLiveData<BluetoothResponse<Stri
 
         if(firstChar in switchChars){
             switchChar = firstChar
-            if(messageLastChar.equals(LAST_CHAR))
-                bluetoothString = bluetoothString.plus(message.drop(1))
-                bluetoothResponse.postValue(checkBluetoothResponse(bluetoothString))
+            if(messageLastChar.equals(LAST_CHAR)) {
+                bluetoothString = bluetoothString.plus(message)
+                handleBluetoothResponse(bluetoothString)
                 bluetoothString = ""
                 switchChar = ""
+            }else
+                bluetoothString = bluetoothString.plus(message)
             return
         }
 
         if (messageLastChar.equals(LAST_CHAR)){
-            if(!(firstChar in switchChars))
-                bluetoothString = bluetoothString.plus(message.dropLast(1))
-            else
-                bluetoothString = bluetoothString.dropLast(1)
-            when(switchChar) {
-                "!" -> {
-                    if (messageLastChar.equals(LAST_CHAR)) {
-                        val temp = bluetoothString
-                        bluetoothString = bluetoothString.drop(1).dropLast(1)
-                        val result: List<Int> = bluetoothString.split(", ").map { it.toInt()}
-//                        calculateBedBitMap(result)
-                        bluetoothString = ""
-                        switchChar = ""
-                        bluetoothResponse.postValue(checkBluetoothResponse(bluetoothString))
-                        return
-                    }
-
-                }
-                "@" -> {
-                    if ("*".equals(messageLastChar)) {
-                        bluetoothString = ""
-                        switchChar = ""
-                        return
-                    }
-                }
-            }
+            bluetoothString = bluetoothString.plus(message)
+            handleBluetoothResponse(bluetoothString)
+            bluetoothString = ""
+            switchChar = ""
+            return
         }
 
         bluetoothString = bluetoothString.plus(message)
         // send the data to UI
     }
 
-    fun handleBluetoothResponse(response: BluetoothResponse<String>) {
-        var firstChar: String? = response.response?.substring(0,1) ?: null
-        var messageLastChar: String? = response.response?.takeLast(1) ?: null
+    fun handleBluetoothResponse(response: String) {
+        var firstChar: String? = response.substring(0,1) ?: null
+        var messageLastChar: String? = response.takeLast(1) ?: null
 
         when(switchChar) {
             BED_DATA_RESPONSE -> {
