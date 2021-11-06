@@ -8,6 +8,8 @@ import org.junit.Before
 import org.junit.Test
 
 internal class BluetoothHandlerTest {
+    private val charPool : List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
+    private val batchSize: Int = 1024
     private lateinit var bluetoothHandler: BluetoothHandler
     private var bluetoothResult: MutableLiveData<BluetoothResponse<String>> = MutableLiveData()
 
@@ -17,10 +19,37 @@ internal class BluetoothHandlerTest {
     }
 
     @Test
-    fun handleBluetoothResponse() {
+    fun handleBluetoothResponseShort() {
         val data = generateBluetoothByteArray("TEST")
         val msg: Message = Message()
         msg.obj = data
         bluetoothHandler.handleMessage(msg)
+    }
+
+    @Test
+    fun handleBluetoothResponseMedium() {
+        splitMessageBatch(600)
+    }
+
+    @Test
+    fun handleBluetoothResponseLong() {
+        splitMessageBatch(2000)
+    }
+
+    fun splitMessageBatch(x: Int){
+        val data = generateBluetoothByteArray(generateRandomString(x))
+        val messageCount: Int = data.size/batchSize
+        for (i in 0..messageCount){
+            val msg: Message = Message()
+            msg.obj = if (i == messageCount) data.copyOfRange(i*batchSize, data.size) else data.copyOfRange(i * batchSize, (i + 1) * batchSize)
+            bluetoothHandler.handleMessage(msg)
+        }
+    }
+
+    fun generateRandomString(x: Int): String {
+        return (1..x)
+            .map { i -> kotlin.random.Random.nextInt(0, charPool.size)}
+            .map (charPool::get)
+            .joinToString { "" }
     }
 }
