@@ -8,7 +8,8 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 
-class ConnectedThread(private val handler: Handler, private val m_bluetoothSocket:BluetoothSocket) : Thread() {
+class ConnectedThread(private val handler: Handler, private val m_bluetoothSocket:BluetoothSocket,
+                        private val callback: (result: ByteArray) -> Unit) : Thread() {
 
     private lateinit var mmInStream: InputStream
     private lateinit var mmOutStream: OutputStream
@@ -47,8 +48,9 @@ class ConnectedThread(private val handler: Handler, private val m_bluetoothSocke
             val readMsg = handler.obtainMessage(
                 MESSAGE_READ, numBytes, -1,
                 mmBuffer)
+            callback(mmBuffer)
             mmBuffer = ByteArray(1024)
-            readMsg.sendToTarget()
+//            readMsg.sendToTarget()
         }
     }
 

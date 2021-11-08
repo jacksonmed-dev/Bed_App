@@ -17,16 +17,17 @@ class MyBluetoothService(
     // handler that gets info from Bluetooth service
     private val handler: Handler,
     val m_address: String,
-    val context: Context
-): BluetoothResult {
+    val context: Context,
+    private val callback: (result: ByteArray) -> Unit
+) {
     lateinit var m_bluetoothSocket: BluetoothSocket
     lateinit var m_bluetoothService: ConnectedThread
 
 
-    override fun processFinish(m_bluetoothSocket: BluetoothSocket) {
+    fun processFinish(m_bluetoothSocket: BluetoothSocket) {
         if(m_bluetoothSocket != null){
             this.m_bluetoothSocket = m_bluetoothSocket
-            m_bluetoothService = ConnectedThread(this.handler!!, this.m_bluetoothSocket!!)
+            m_bluetoothService = ConnectedThread(this.handler!!, this.m_bluetoothSocket!!, callback)
             m_bluetoothService.start()
         }
     }

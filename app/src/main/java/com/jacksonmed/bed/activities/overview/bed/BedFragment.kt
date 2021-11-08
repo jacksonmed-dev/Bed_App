@@ -46,7 +46,7 @@ class BedFragment : Fragment() {
         _binding = FragmentBedBinding.inflate(inflater, container, false)
 
         bedDrawableView = BedDrawableView(mContext)
-        bluetoothService = MyBluetoothService(BluetoothHandler(bluetoothViewModel.bluetoothResponse), BLUETOOTH_ADDRESS, mContext)
+        bluetoothService = MyBluetoothService(BluetoothHandler(bluetoothViewModel.bluetoothResponse), BLUETOOTH_ADDRESS, mContext, bluetoothViewModel::handleBluetooth)
         bluetoothService.connect()
 
         return binding.root

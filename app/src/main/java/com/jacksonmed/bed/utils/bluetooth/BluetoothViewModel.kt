@@ -5,12 +5,30 @@ import android.graphics.Color
 import androidx.lifecycle.*
 import com.jacksonmed.bed.api.BluetoothResponse
 import com.jacksonmed.bed.utils.PressureBitmap
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
+import java.util.concurrent.Flow
 
 
 class BluetoothViewModel():ViewModel(){
     val bedDataResponse: MutableLiveData<String> = MutableLiveData()
     val bedDataBitmap: MutableLiveData<Bitmap> = MutableLiveData()
     val bluetoothResponse: MediatorLiveData<BluetoothResponse<String>> = MediatorLiveData()
+
+
+//    fun simple(): Flow<Int> = flow {
+//        println("Flow started")
+//        for (i in 1..3) {
+//            delay(100)
+//            emit(i)
+//        }
+//    }
+
+    fun handleBluetooth(data: ByteArray){
+        val data: ByteArray = HelperFunctions.removeBytePadding(data)
+        var message: String = String(data)
+
+    }
 
     fun calculateBedBitMap(data: List<Int>) {
 //        var readings: JSONArray = JSONObject(message!!).getJSONArray("readings").getJSONArray(0)
