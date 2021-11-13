@@ -20,6 +20,8 @@ import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.BLUE
 import com.jacksonmed.bed.utils.bluetooth.BluetoothHandler
 import com.jacksonmed.bed.utils.bluetooth.BluetoothViewModel
 import com.jacksonmed.bed.utils.bluetooth.HelperFunctions.Companion.generateBluetoothByteArray
+import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.BLUETOOTH_MASSAGE_START
+import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.BLUETOOTH_MASSAGE_STOP
 
 
 class BedFragment : Fragment() {
@@ -64,48 +66,31 @@ class BedFragment : Fragment() {
             }
         })
 
+        val apiStatusResponseObserver: Observer<ApiResponse<StatusResponse>> = object :
+            Observer<ApiResponse<StatusResponse>> {
+                override fun onChanged(apiResponse: ApiResponse<StatusResponse>) {
+                    if (apiResponse.error != null && apiResponse.response == null) {   // Call unsuccessful
+                        Toast.makeText(
+                            context,
+                            apiResponse.error.toString(),
+                            Toast.LENGTH_LONG
+                        ).show()
+                        return
+                    }
+                    binding.textViewResponse.text =
+                        apiResponse.response?.body()?.toString()
+                }
+            }
+
         binding.switchMassage.setOnCheckedChangeListener {_ , isChecked ->
             if(isChecked) {
-                if(isBluetooth) bluetoothService.sendMessage(generateBluetoothByteArray("1"))
-                else {
-                    viewModel.startMassage().observe(
-                        viewLifecycleOwner,
-                        object : Observer<ApiResponse<StatusResponse>> {
-                            override fun onChanged(apiResponse: ApiResponse<StatusResponse>) {
-                                if (apiResponse.error != null && apiResponse.response == null) {   // Call unsuccessful
-                                    Toast.makeText(
-                                        context,
-                                        apiResponse.error.toString(),
-                                        Toast.LENGTH_LONG
-                                    ).show()
-                                    return
-                                }
-                                binding.textViewResponse.text =
-                                    apiResponse.response?.body()?.toString()
-                            }
-
-                        })
-                }
+                if(isBluetooth) bluetoothService.sendMessage(generateBluetoothByteArray(
+                    BLUETOOTH_MASSAGE_START))
+                else viewModel.startMassage().observe(viewLifecycleOwner, apiStatusResponseObserver)
             }else {
-                if(isBluetooth) bluetoothService.sendMessage(generateBluetoothByteArray("0"))
-                else {
-                    viewModel.stopMassage().observe(
-                        viewLifecycleOwner,
-                        object : Observer<ApiResponse<StatusResponse>> {
-                            override fun onChanged(apiResponse: ApiResponse<StatusResponse>) {
-                                if (apiResponse.error != null && apiResponse.response == null) {   // Call unsuccessful
-                                    Toast.makeText(
-                                        context,
-                                        apiResponse.error.toString(),
-                                        Toast.LENGTH_LONG
-                                    ).show()
-                                    return
-                                }
-                                binding.textViewResponse.text =
-                                    apiResponse.response?.body()?.toString()
-                            }
-                        })
-                }
+                if(isBluetooth) bluetoothService.sendMessage(generateBluetoothByteArray(
+                    BLUETOOTH_MASSAGE_STOP))
+                else viewModel.stopMassage().observe(viewLifecycleOwner, apiStatusResponseObserver)
             }
         }
 

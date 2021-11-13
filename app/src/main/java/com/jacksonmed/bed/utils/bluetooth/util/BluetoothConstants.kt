@@ -9,5 +9,7 @@ class BluetoothConstants {
         const val BED_DATA_RESPONSE: String = "!"
         const val TEST_CHAR_RESPONSE: String = "@"
 
+        const val BLUETOOTH_MASSAGE_START = "1"
+        const val BLUETOOTH_MASSAGE_STOP = "0"
     }
 }
