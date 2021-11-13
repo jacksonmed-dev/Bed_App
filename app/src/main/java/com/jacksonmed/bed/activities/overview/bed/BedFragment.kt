@@ -1,6 +1,7 @@
 package com.jacksonmed.bed.activities.overview.bed
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -116,10 +117,12 @@ class BedFragment : Fragment() {
 
         binding.switchBedData.setOnCheckedChangeListener{_, isChecked ->
             if(isChecked){
-                viewModel.getBedData()
-                viewModel.bedDataBitmap.observe(viewLifecycleOwner, Observer { response ->
+                bluetoothViewModel.bedDataBitmap.observe(viewLifecycleOwner, Observer { response ->
                     binding.imageViewBedData.setImageBitmap(response)
                 })
+            }else {
+                bluetoothViewModel.bedDataBitmap.removeObservers(viewLifecycleOwner)
+                binding.imageViewBedData.setImageResource(android.R.color.transparent)
             }
         }
     }
@@ -132,4 +135,20 @@ class BedFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    private fun onImageViewBedDataChanged(isChecked: Boolean){
+
+    }
+
+    // Code that clears observers to live data
+
+//    override fun onPause() {
+//        attendanceViewModel.getAttendance().removeObservers(this)
+//        super.onPause()
+//    }
+//
+//    override fun onStop() {
+//        attendanceViewModel.getAttendance().removeObservers(this)
+//        super.onStop()
+//    }
 }

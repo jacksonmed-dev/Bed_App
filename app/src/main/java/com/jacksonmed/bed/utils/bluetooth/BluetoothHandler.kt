@@ -4,14 +4,12 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.jacksonmed.bed.api.BluetoothResponse
 import com.jacksonmed.bed.api.checkBluetoothResponse
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.BED_DATA_RESPONSE
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.LAST_CHAR
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.TEST_CHAR_RESPONSE
 import com.jacksonmed.bed.utils.bluetooth.HelperFunctions.Companion.removeBytePadding
-import com.jacksonmed.bed.utils.bluetooth.service.BluetoothResult
 
 class BluetoothHandler(bluetoothResponse: MutableLiveData<BluetoothResponse<String>>): Handler(Looper.getMainLooper()) {
     var bluetoothString: String = ""
@@ -58,10 +56,10 @@ class BluetoothHandler(bluetoothResponse: MutableLiveData<BluetoothResponse<Stri
     }
 
     fun handleBluetoothResponse(response: String) {
-        var firstChar: String? = response.substring(0,1) ?: null
-        var messageLastChar: String? = response.takeLast(1) ?: null
+        var firstChar: String? = response.substring(0,1)
+        var messageLastChar: String? = response.takeLast(1)
 
-        when(switchChar) {
+        when(firstChar) {
             BED_DATA_RESPONSE -> {
                 if (messageLastChar.equals(LAST_CHAR)) {
                     val temp = bluetoothString
