@@ -5,10 +5,13 @@ import android.graphics.Canvas
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.RectShape
 import android.view.View
+import android.widget.Button
 
 class BedDrawableView(context: Context, inflatableRegions: Int): View(context) {
     private var inflatableRegions = inflatableRegions
     private var drawableRectangle: MutableList<ShapeDrawable> = mutableListOf()
+    private var buttonList: MutableList<Button> = mutableListOf()
+    private var m_context: Context = context
 
     override fun onDraw(canvas: Canvas) {
         for (rectangle in drawableRectangle)

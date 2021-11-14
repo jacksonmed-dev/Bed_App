@@ -44,7 +44,6 @@ class DrawableFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bedDrawableView.createRectangles()
-
         bluetoothViewModel.bedStatusResponse.observe(viewLifecycleOwner, Observer { response ->
             var colorOn: Int = ContextCompat.getColor(requireContext(), R.color.primary)
             var colorOff: Int = ContextCompat.getColor(requireContext(), R.color.gray)

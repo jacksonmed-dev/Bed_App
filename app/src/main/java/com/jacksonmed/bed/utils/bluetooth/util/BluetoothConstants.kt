@@ -12,6 +12,7 @@ class BluetoothConstants {
         const val MASSAGE_START = "1"
 
         const val BED_DATA_RESPONSE = "!"
+        const val BED_DATA_RESPONSE_AUTOMATIC = ")"
 
         const val BED_STATUS_RESPONSE = "&"
         const val INFLATABLE_REGION_HEADER = "%"

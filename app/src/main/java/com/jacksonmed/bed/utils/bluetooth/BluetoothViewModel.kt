@@ -10,6 +10,7 @@ import com.jacksonmed.bed.model.Bed
 import com.jacksonmed.bed.model.BedStatus
 import com.jacksonmed.bed.utils.PressureBitmap
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants
+import java.lang.Exception
 
 
 class BluetoothViewModel():ViewModel(){
@@ -90,10 +91,12 @@ class BluetoothViewModel():ViewModel(){
             }
             BluetoothConstants.BED_STATUS_RESPONSE -> {
                 bluetoothString = bluetoothString.drop(1).dropLast(1)
-                var map: Map<String, Any> = HashMap()
-                map = Gson().fromJson(bluetoothString, map.javaClass)
-                val newData: Bed = Gson().fromJson(bluetoothString, Bed::class.java)
-                bedStatusResponse.postValue(newData)
+                try {
+                    val newData: Bed = Gson().fromJson(bluetoothString, Bed::class.java)
+                    bedStatusResponse.postValue(newData)
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
                 return
             }
         }
