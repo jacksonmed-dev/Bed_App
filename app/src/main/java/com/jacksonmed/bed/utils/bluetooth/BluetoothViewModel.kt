@@ -2,15 +2,14 @@ package com.jacksonmed.bed.utils.bluetooth
 
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.os.Message
 import androidx.lifecycle.*
+import com.google.gson.Gson
 import com.jacksonmed.bed.api.BluetoothResponse
 import com.jacksonmed.bed.api.checkBluetoothResponse
+import com.jacksonmed.bed.model.Bed
+import com.jacksonmed.bed.model.BedStatus
 import com.jacksonmed.bed.utils.PressureBitmap
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.flow
-import java.util.concurrent.Flow
 
 
 class BluetoothViewModel():ViewModel(){
@@ -19,10 +18,8 @@ class BluetoothViewModel():ViewModel(){
     val switchChars: Array<String> = arrayOf("!", "@")
 
     val bluetoothResponse: MediatorLiveData<BluetoothResponse<String>> = MediatorLiveData()
-//    val bedDataResponse: MutableLiveData<String> = MutableLiveData()
     val bedDataBitmap: MutableLiveData<Bitmap> = MutableLiveData()
-
-
+    val bedStatusResponse: MediatorLiveData<Bed> = MediatorLiveData()
 //    fun simple(): Flow<Int> = flow {
 //        println("Flow started")
 //        for (i in 1..3) {
@@ -44,7 +41,7 @@ class BluetoothViewModel():ViewModel(){
 
         if(firstChar in switchChars){
             switchChar = firstChar
-            if(messageLastChar.equals(BluetoothConstants.LAST_CHAR)) {
+            if(messageLastChar.equals(BluetoothConstants.TRAILER)) {
                 bluetoothString = bluetoothString.plus(message)
                 handleBluetoothResponse(bluetoothString)
                 bluetoothString = ""
@@ -54,7 +51,7 @@ class BluetoothViewModel():ViewModel(){
             return
         }
 
-        if (messageLastChar.equals(BluetoothConstants.LAST_CHAR)){
+        if (messageLastChar.equals(BluetoothConstants.TRAILER)){
             bluetoothString = bluetoothString.plus(message)
             handleBluetoothResponse(bluetoothString)
             bluetoothString = ""
@@ -73,7 +70,7 @@ class BluetoothViewModel():ViewModel(){
 
         when(firstChar) {
             BluetoothConstants.BED_DATA_RESPONSE -> {
-                if (messageLastChar.equals(BluetoothConstants.LAST_CHAR)) {
+                if (messageLastChar.equals(BluetoothConstants.TRAILER)) {
                     val temp = bluetoothString
                     bluetoothString = bluetoothString.drop(2).dropLast(2)       // Removes header, trailer, and brackets
                     val result: List<Int> = bluetoothString.split(", ").map { it.toInt()}
@@ -84,12 +81,20 @@ class BluetoothViewModel():ViewModel(){
                 }
             }
             BluetoothConstants.TEST_CHAR_RESPONSE -> {
-                if (messageLastChar.equals(BluetoothConstants.LAST_CHAR)) {
+                if (messageLastChar.equals(BluetoothConstants.TRAILER)) {
                     bluetoothResponse.postValue(checkBluetoothResponse(bluetoothString))
                     bluetoothString = ""
                     switchChar = ""
                     return
                 }
+            }
+            BluetoothConstants.BED_STATUS_RESPONSE -> {
+                bluetoothString = bluetoothString.drop(1).dropLast(1)
+                var map: Map<String, Any> = HashMap()
+                map = Gson().fromJson(bluetoothString, map.javaClass)
+                val newData: Bed = Gson().fromJson(bluetoothString, Bed::class.java)
+                bedStatusResponse.postValue(newData)
+                return
             }
         }
     }

@@ -4,6 +4,7 @@ import android.os.Message
 import androidx.lifecycle.MutableLiveData
 import com.jacksonmed.bed.api.BluetoothResponse
 import com.jacksonmed.bed.utils.bluetooth.HelperFunctions.Companion.generateBluetoothByteArray
+import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.MASSAGE_HEADER
 import org.junit.Before
 import org.junit.Test
 
@@ -20,7 +21,7 @@ internal class BluetoothHandlerTest {
 
     @Test
     fun handleBluetoothResponseShort() {
-        val data = generateBluetoothByteArray("TEST")
+        val data = generateBluetoothByteArray(MASSAGE_HEADER,"TEST")
         val msg: Message = Message()
         msg.obj = data
         bluetoothHandler.handleMessage(msg)
@@ -37,7 +38,7 @@ internal class BluetoothHandlerTest {
     }
 
     fun splitMessageBatch(x: Int){
-        val data = generateBluetoothByteArray(generateRandomString(x))
+        val data = generateBluetoothByteArray(MASSAGE_HEADER, generateRandomString(x))
         val messageCount: Int = data.size/batchSize
         for (i in 0..messageCount){
             val msg: Message = Message()

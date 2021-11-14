@@ -6,8 +6,8 @@ import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.RectShape
 import android.view.View
 
-class BedDrawableView(context: Context): View(context) {
-
+class BedDrawableView(context: Context, inflatableRegions: Int): View(context) {
+    private var inflatableRegions = inflatableRegions
     private var drawableRectangle: MutableList<ShapeDrawable> = mutableListOf()
 
     override fun onDraw(canvas: Canvas) {
@@ -15,14 +15,14 @@ class BedDrawableView(context: Context): View(context) {
             rectangle.draw(canvas)
     }
 
-    fun createRectangles(num: Int){
+    fun createRectangles(){
         drawableRectangle = mutableListOf()
         var baseY = 10
         val width = 300
         val height = 50
         val offset = 10
 
-        for(i in 0 until num){
+        for(i in 0 until inflatableRegions){
             val drawable: ShapeDrawable = run {
                 val x = 10
                 val y = baseY

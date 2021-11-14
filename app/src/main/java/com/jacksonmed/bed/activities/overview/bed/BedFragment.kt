@@ -1,7 +1,6 @@
 package com.jacksonmed.bed.activities.overview.bed
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,7 +10,6 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.jacksonmed.bed.utils.bluetooth.service.MyBluetoothService
-import com.jacksonmed.bed.activities.overview.bed.inflatable.BedDrawableView
 import com.jacksonmed.bed.api.ApiResponse
 import com.jacksonmed.bed.api.BluetoothResponse
 import com.jacksonmed.bed.databinding.FragmentBedBinding
@@ -20,8 +18,13 @@ import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.BLUE
 import com.jacksonmed.bed.utils.bluetooth.BluetoothHandler
 import com.jacksonmed.bed.utils.bluetooth.BluetoothViewModel
 import com.jacksonmed.bed.utils.bluetooth.HelperFunctions.Companion.generateBluetoothByteArray
-import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.BLUETOOTH_MASSAGE_START
-import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.BLUETOOTH_MASSAGE_STOP
+import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.BED_DATA_RESPONSE
+import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.EMPTY_STRING
+import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.INFLATABLE_REGION_HEADER
+import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.INFLATABLE_REGION_STATUS
+import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.MASSAGE_HEADER
+import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.MASSAGE_START
+import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.MASSAGE_STOP
 
 
 class BedFragment : Fragment() {
@@ -29,8 +32,6 @@ class BedFragment : Fragment() {
     private val viewModel: BedViewModel by activityViewModels()
     private val bluetoothViewModel: BluetoothViewModel by activityViewModels()
     private var _binding: FragmentBedBinding? = null
-
-    private lateinit var bedDrawableView: BedDrawableView
 
     private lateinit var bluetoothService: MyBluetoothService
     private lateinit var mContext: Context
@@ -47,8 +48,6 @@ class BedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBedBinding.inflate(inflater, container, false)
-
-        bedDrawableView = BedDrawableView(mContext)
         bluetoothService = MyBluetoothService(BluetoothHandler(bluetoothViewModel.bluetoothResponse), BLUETOOTH_ADDRESS, mContext, bluetoothViewModel::handleBluetooth)
         bluetoothService.connect()
 
@@ -57,8 +56,6 @@ class BedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        bedDrawableView.createRectangles(20)
 
         bluetoothViewModel.bluetoothResponse.observe(viewLifecycleOwner, object: Observer<BluetoothResponse<String>> {
             override fun onChanged(t: BluetoothResponse<String>?) {
@@ -85,18 +82,21 @@ class BedFragment : Fragment() {
         binding.switchMassage.setOnCheckedChangeListener {_ , isChecked ->
             if(isChecked) {
                 if(isBluetooth) bluetoothService.sendMessage(generateBluetoothByteArray(
-                    BLUETOOTH_MASSAGE_START))
+                    MASSAGE_HEADER,
+                    MASSAGE_START))
                 else viewModel.startMassage().observe(viewLifecycleOwner, apiStatusResponseObserver)
             }else {
                 if(isBluetooth) bluetoothService.sendMessage(generateBluetoothByteArray(
-                    BLUETOOTH_MASSAGE_STOP))
+                    MASSAGE_HEADER,
+                    MASSAGE_STOP))
                 else viewModel.stopMassage().observe(viewLifecycleOwner, apiStatusResponseObserver)
             }
         }
 
         binding.buttonBedStatus.setOnClickListener {
-            val data = "#".toByteArray()
-            if(isBluetooth) bluetoothService.sendMessage(data)
+            if(isBluetooth) bluetoothService.sendMessage(generateBluetoothByteArray(
+                BED_DATA_RESPONSE,
+                EMPTY_STRING))
             else viewModel.getBedStatus()
         }
 
@@ -110,6 +110,7 @@ class BedFragment : Fragment() {
                 binding.imageViewBedData.setImageResource(android.R.color.transparent)
             }
         }
+
     }
 
     companion object {

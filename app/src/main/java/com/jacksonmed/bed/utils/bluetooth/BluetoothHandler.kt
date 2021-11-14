@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.jacksonmed.bed.api.BluetoothResponse
 import com.jacksonmed.bed.api.checkBluetoothResponse
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.BED_DATA_RESPONSE
-import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.LAST_CHAR
+import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.TRAILER
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.TEST_CHAR_RESPONSE
 import com.jacksonmed.bed.utils.bluetooth.HelperFunctions.Companion.removeBytePadding
 
@@ -16,8 +16,6 @@ class BluetoothHandler(bluetoothResponse: MutableLiveData<BluetoothResponse<Stri
     var switchChar: String = ""
     val switchChars: Array<String> = arrayOf("!", "@")
     var bluetoothResponse = bluetoothResponse
-
-    var isFirstChar: Boolean = false
 
     override fun handleMessage(msg: Message) {
         val data: ByteArray = removeBytePadding(msg.obj as ByteArray)
@@ -33,7 +31,7 @@ class BluetoothHandler(bluetoothResponse: MutableLiveData<BluetoothResponse<Stri
 
         if(firstChar in switchChars){
             switchChar = firstChar
-            if(messageLastChar.equals(LAST_CHAR)) {
+            if(messageLastChar.equals(TRAILER)) {
                 bluetoothString = bluetoothString.plus(message)
                 handleBluetoothResponse(bluetoothString)
                 bluetoothString = ""
@@ -43,7 +41,7 @@ class BluetoothHandler(bluetoothResponse: MutableLiveData<BluetoothResponse<Stri
             return
         }
 
-        if (messageLastChar.equals(LAST_CHAR)){
+        if (messageLastChar.equals(TRAILER)){
             bluetoothString = bluetoothString.plus(message)
             handleBluetoothResponse(bluetoothString)
             bluetoothString = ""
@@ -61,7 +59,7 @@ class BluetoothHandler(bluetoothResponse: MutableLiveData<BluetoothResponse<Stri
 
         when(firstChar) {
             BED_DATA_RESPONSE -> {
-                if (messageLastChar.equals(LAST_CHAR)) {
+                if (messageLastChar.equals(TRAILER)) {
                     val temp = bluetoothString
                     bluetoothString = bluetoothString.drop(1).dropLast(1)
                     val result: List<Int> = bluetoothString.split(", ").map { it.toInt()}
@@ -73,7 +71,7 @@ class BluetoothHandler(bluetoothResponse: MutableLiveData<BluetoothResponse<Stri
                 }
             }
             TEST_CHAR_RESPONSE -> {
-                if (messageLastChar.equals(LAST_CHAR)) {
+                if (messageLastChar.equals(TRAILER)) {
                     bluetoothResponse.postValue(checkBluetoothResponse(bluetoothString))
                     bluetoothString = ""
                     switchChar = ""
