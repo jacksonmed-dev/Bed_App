@@ -25,7 +25,7 @@ class DrawableFragment: Fragment() {
     private lateinit var drawableFragmentViewModel: DrawableFragmentViewModel
 
     private lateinit var bedDrawableView: BedDrawableView
-    private var inflatableRegions: Int = 8
+    private var inflatableRegions: Int = 20
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
