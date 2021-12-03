@@ -3,6 +3,8 @@ plugins {
     id 'kotlin-android'
     id "org.jetbrains.kotlin.plugin.serialization"
     id 'de.mannodermaus.android-junit5'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -93,4 +95,8 @@ dependencies {
 
 //For accessing Test helpers to test LiveData
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
+
+    // Dependency Injection
+    implementation("com.google.dagger:hilt-android:2.38.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.38.1")
 }

@@ -3,8 +3,9 @@ package com.jacksonmed.bed.utils.bluetooth.util
 class BluetoothConstants {
     companion object {
         const val TRAILER: String = "*"
-        const val BLUETOOTH_ADDRESS: String = "E4:5F:01:02:81:7F"
+//        const val BLUETOOTH_ADDRESS: String = "E4:5F:01:02:81:7F"
 //        const val BLUETOOTH_ADDRESS = "E4:5F:01:09:59:C0"
+        const val BLUETOOTH_ADDRESS = "DC:A6:32:62:84:A5"
         const val TEST_CHAR_RESPONSE = "@"
 
         const val MASSAGE_HEADER = "@"

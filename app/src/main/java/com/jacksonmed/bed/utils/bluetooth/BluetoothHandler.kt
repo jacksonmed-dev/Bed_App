@@ -62,8 +62,6 @@ class BluetoothHandler(bluetoothResponse: MutableLiveData<BluetoothResponse<Stri
                 if (messageLastChar.equals(TRAILER)) {
                     val temp = bluetoothString
                     bluetoothString = bluetoothString.drop(1).dropLast(1)
-                    val result: List<Int> = bluetoothString.split(", ").map { it.toInt()}
-//                        calculateBedBitMap(result)
                     bluetoothString = ""
                     switchChar = ""
                     bluetoothResponse.postValue(checkBluetoothResponse(bluetoothString))
