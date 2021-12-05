@@ -81,7 +81,7 @@ class BluetoothViewModel():ViewModel(){
 
         when(firstChar) {
             BluetoothConstants.BED_DATA_RESPONSE_HEADER -> {
-                if (messageLastChar.equals(BluetoothConstants.TRAILER)) {
+                if (messageLastChar.equals(TRAILER)) {
                     val temp = bluetoothString
                     bluetoothString = bluetoothString.drop(2).dropLast(2)       // Removes header, trailer, and brackets
                     val result: List<Int> = bluetoothString.split(", ").map { it.toInt()}
