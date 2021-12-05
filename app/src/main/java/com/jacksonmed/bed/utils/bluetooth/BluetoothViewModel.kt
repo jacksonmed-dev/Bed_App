@@ -7,10 +7,12 @@ import com.google.gson.Gson
 import com.jacksonmed.bed.api.BluetoothResponse
 import com.jacksonmed.bed.api.checkBluetoothResponse
 import com.jacksonmed.bed.model.Bed
-import com.jacksonmed.bed.model.BedStatus
 import com.jacksonmed.bed.utils.PressureBitmap
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants
+import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.ALL_HEADERS
+import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.TRAILER
 import java.lang.Exception
+import java.util.*
 
 
 class BluetoothViewModel():ViewModel(){
@@ -65,12 +67,20 @@ class BluetoothViewModel():ViewModel(){
 
     }
 
+    fun checkDataFormat(response: String): Boolean{
+        val containsHeaderNotInFirstPosition: Boolean = Arrays.stream(ALL_HEADERS).anyMatch { t ->
+            (response.contains(t) && response.indexOf(t.toString(), 0) != 0)
+        }
+        val containsFooter: Boolean = response.contains(TRAILER)
+        return !(containsHeaderNotInFirstPosition && containsFooter)
+    }
+
     fun handleBluetoothResponse(response: String) {
         var firstChar: String? = response.substring(0,1)
         var messageLastChar: String? = response.takeLast(1)
 
         when(firstChar) {
-            BluetoothConstants.BED_DATA_RESPONSE -> {
+            BluetoothConstants.BED_DATA_RESPONSE_HEADER -> {
                 if (messageLastChar.equals(BluetoothConstants.TRAILER)) {
                     val temp = bluetoothString
                     bluetoothString = bluetoothString.drop(2).dropLast(2)       // Removes header, trailer, and brackets
@@ -89,7 +99,7 @@ class BluetoothViewModel():ViewModel(){
                     return
                 }
             }
-            BluetoothConstants.BED_STATUS_RESPONSE -> {
+            BluetoothConstants.BED_STATUS_RESPONSE_HEADER -> {
                 bluetoothString = bluetoothString.drop(1).dropLast(1)
                 try {
                     val newData: Bed = Gson().fromJson(bluetoothString, Bed::class.java)

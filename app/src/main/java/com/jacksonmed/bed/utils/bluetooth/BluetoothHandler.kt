@@ -6,7 +6,7 @@ import android.os.Message
 import androidx.lifecycle.MutableLiveData
 import com.jacksonmed.bed.api.BluetoothResponse
 import com.jacksonmed.bed.api.checkBluetoothResponse
-import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.BED_DATA_RESPONSE
+import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.BED_DATA_RESPONSE_HEADER
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.TRAILER
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.TEST_CHAR_RESPONSE
 import com.jacksonmed.bed.utils.bluetooth.HelperFunctions.Companion.removeBytePadding
@@ -58,7 +58,7 @@ class BluetoothHandler(bluetoothResponse: MutableLiveData<BluetoothResponse<Stri
         var messageLastChar: String? = response.takeLast(1)
 
         when(firstChar) {
-            BED_DATA_RESPONSE -> {
+            BED_DATA_RESPONSE_HEADER -> {
                 if (messageLastChar.equals(TRAILER)) {
                     val temp = bluetoothString
                     bluetoothString = bluetoothString.drop(1).dropLast(1)

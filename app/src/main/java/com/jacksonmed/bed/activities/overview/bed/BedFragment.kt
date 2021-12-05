@@ -18,11 +18,9 @@ import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.BLUE
 import com.jacksonmed.bed.utils.bluetooth.BluetoothHandler
 import com.jacksonmed.bed.utils.bluetooth.BluetoothViewModel
 import com.jacksonmed.bed.utils.bluetooth.HelperFunctions.Companion.generateBluetoothByteArray
-import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.BED_DATA_RESPONSE
-import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.BED_DATA_RESPONSE_AUTOMATIC
+import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.BED_DATA_RESPONSE_HEADER
+import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.BED_DATA_RESPONSE_AUTOMATIC_HEADER
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.EMPTY_STRING
-import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.INFLATABLE_REGION_HEADER
-import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.INFLATABLE_REGION_STATUS
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.MASSAGE_HEADER
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.MASSAGE_START
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.MASSAGE_STOP
@@ -96,14 +94,14 @@ class BedFragment : Fragment() {
 
         binding.buttonBedStatus.setOnClickListener {
             if(isBluetooth) bluetoothService.sendMessage(generateBluetoothByteArray(
-                BED_DATA_RESPONSE,
+                BED_DATA_RESPONSE_HEADER,
                 EMPTY_STRING))
             else viewModel.getBedStatus()
         }
 
         binding.bedStatusSwitch.setOnCheckedChangeListener{_, isChecked ->
             if(isBluetooth) bluetoothService.sendMessage(generateBluetoothByteArray(
-                BED_DATA_RESPONSE_AUTOMATIC,
+                BED_DATA_RESPONSE_AUTOMATIC_HEADER,
                 EMPTY_STRING))
             else viewModel.getBedStatus()
         }

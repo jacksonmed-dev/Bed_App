@@ -12,13 +12,21 @@ class BluetoothConstants {
         const val MASSAGE_STOP = "0"
         const val MASSAGE_START = "1"
 
-        const val BED_DATA_RESPONSE = "!"
-        const val BED_DATA_RESPONSE_AUTOMATIC = ")"
+        const val BED_DATA_RESPONSE_HEADER = "!"
+        const val BED_DATA_RESPONSE_AUTOMATIC_HEADER = ")"
 
-        const val BED_STATUS_RESPONSE = "&"
+        const val BED_STATUS_RESPONSE_HEADER = "&"
         const val INFLATABLE_REGION_HEADER = "%"
         const val INFLATABLE_REGION_STATUS = "2"
 
         const val EMPTY_STRING = ""
+
+        val ALL_HEADERS = arrayOf(
+            MASSAGE_HEADER,
+            BED_DATA_RESPONSE_HEADER,
+            BED_DATA_RESPONSE_AUTOMATIC_HEADER,
+            BED_STATUS_RESPONSE_HEADER,
+            INFLATABLE_REGION_HEADER,
+            )
     }
 }
