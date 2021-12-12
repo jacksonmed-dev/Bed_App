@@ -27,6 +27,7 @@ internal class BluetoothViewModelTest {
 
     @Test
     fun checkDataFormatTest1(){
+        //Good Data Example
         val testResponse: String = BED_STATUS_RESPONSE_HEADER + "{\"gpio_pins\": [{\"gpio_pin\": 0}]}" + TRAILER
         val result = bluetoothViewModel.checkDataFormat(testResponse)
         Assert.assertEquals(true, result)
@@ -34,6 +35,7 @@ internal class BluetoothViewModelTest {
 
     @Test
     fun checkDataFormatTest2(){
+        //Good Data Example. Represents the last chunk in bluetooth transmission
         val testResponse: String = "{\"gpio_pins\": [{\"gpio_pin\": 0}]}" + TRAILER
         val result = bluetoothViewModel.checkDataFormat(testResponse)
         Assert.assertEquals(true, result)
@@ -41,6 +43,7 @@ internal class BluetoothViewModelTest {
 
     @Test
     fun checkDataFormatTest3(){
+        //Bad data. trailer followed by header
         val testResponse: String = TRAILER + BED_STATUS_RESPONSE_HEADER + "{\"gpio_pins\": [{\"gpio_pin\": 0}]}" + TRAILER
         val result = bluetoothViewModel.checkDataFormat(testResponse)
         Assert.assertEquals(false, result)
@@ -48,6 +51,7 @@ internal class BluetoothViewModelTest {
 
     @Test
     fun checkDataFormatTest4(){
+        //Bad data. Contains two separate complete objects.
         val testResponse: String = BED_STATUS_RESPONSE_HEADER + "{\"gpio_pins\": [{\"gpio_pin\": 0}]}" + TRAILER + BED_STATUS_RESPONSE_HEADER + "{\"gpio_pins\": [{\"gpio_pin\": 0}]}" + TRAILER
         val result = bluetoothViewModel.checkDataFormat(testResponse)
         Assert.assertEquals(false, result)
