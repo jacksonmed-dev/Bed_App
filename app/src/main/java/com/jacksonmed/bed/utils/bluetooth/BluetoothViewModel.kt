@@ -81,7 +81,10 @@ class BluetoothViewModel():ViewModel(){
             item.length != 0 && ALL_HEADERS.contains(item.get(0).toString())
         }
         splitTrailerList = splitTrailerList.map { item -> item + TRAILER }
-        return splitTrailerList
+
+        var flag: Boolean = true
+        splitTrailerList = splitTrailerList.filter { item -> !checkDataFormat(item) }
+        if (flag){ return splitTrailerList} else { return emptyList()}
     }
 
     fun handleBluetoothResponse(response: String) {
