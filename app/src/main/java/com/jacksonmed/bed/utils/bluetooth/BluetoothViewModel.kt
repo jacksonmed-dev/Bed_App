@@ -75,6 +75,15 @@ class BluetoothViewModel():ViewModel(){
         return !(containsHeaderNotInFirstPosition && containsFooter)
     }
 
+    fun reformatBadData(response: String): List<String> {
+        // Function should split the String into array of data that follows the header/footer pattern
+        var splitTrailerList: List<String> = response.split(TRAILER).filter { item ->
+            item.length != 0 && ALL_HEADERS.contains(item.get(0).toString())
+        }
+        splitTrailerList = splitTrailerList.map { item -> item + TRAILER }
+        return splitTrailerList
+    }
+
     fun handleBluetoothResponse(response: String) {
         var firstChar: String? = response.substring(0,1)
         var messageLastChar: String? = response.takeLast(1)

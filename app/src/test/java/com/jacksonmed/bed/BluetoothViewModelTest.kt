@@ -53,5 +53,17 @@ internal class BluetoothViewModelTest {
         Assert.assertEquals(false, result)
     }
 
+    @Test
+    fun reformatBadDataTest1() {
+        val testResponse: String = BED_STATUS_RESPONSE_HEADER + "{\"gpio_pins\": [{\"gpio_pin\": 0}]}" + TRAILER + BED_STATUS_RESPONSE_HEADER + "{\"gpio_pins\": [{\"gpio_pin\": 0}]}" + TRAILER
+        val correctResult: List<String> = listOf(
+            BED_STATUS_RESPONSE_HEADER + "{\"gpio_pins\": [{\"gpio_pin\": 0}]}" + TRAILER,
+            BED_STATUS_RESPONSE_HEADER + "{\"gpio_pins\": [{\"gpio_pin\": 0}]}" + TRAILER)
+
+        val result: List<String> = bluetoothViewModel.reformatBadData(testResponse)
+        Assert.assertEquals(2, result.size)
+        Assert.assertEquals(correctResult, result)
+    }
+
 
 }
