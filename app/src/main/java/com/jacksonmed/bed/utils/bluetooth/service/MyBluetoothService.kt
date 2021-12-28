@@ -3,6 +3,7 @@ package com.jacksonmed.bed.utils.bluetooth.service
 import android.bluetooth.BluetoothSocket
 import android.content.Context
 import android.os.Handler
+import android.os.Looper
 
 private const val TAG = "MY_APP_DEBUG_TAG"
 // https://developer.android.com/guide/topics/connectivity/bluetooth/transfer-data
@@ -15,11 +16,12 @@ const val MESSAGE_TOAST: Int = 2
 
 class MyBluetoothService(
     // handler that gets info from Bluetooth service
-    private val handler: Handler,
+//    private val handler: Handler,
     val m_address: String,
     val context: Context,
     private val callback: (result: ByteArray) -> Unit
 ) {
+    lateinit var handler: Handler
     lateinit var m_bluetoothSocket: BluetoothSocket
     lateinit var m_bluetoothService: ConnectedThread
 
@@ -27,6 +29,7 @@ class MyBluetoothService(
     fun processFinish(m_bluetoothSocket: BluetoothSocket) {
         if(m_bluetoothSocket != null){
             this.m_bluetoothSocket = m_bluetoothSocket
+            handler = Handler(Looper.getMainLooper())
             m_bluetoothService = ConnectedThread(this.handler!!, this.m_bluetoothSocket!!, callback)
             m_bluetoothService.start()
         }

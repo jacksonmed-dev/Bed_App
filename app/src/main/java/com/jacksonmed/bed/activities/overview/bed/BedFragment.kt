@@ -15,7 +15,6 @@ import com.jacksonmed.bed.api.BluetoothResponse
 import com.jacksonmed.bed.databinding.FragmentBedBinding
 import com.jacksonmed.bed.model.StatusResponse
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.BLUETOOTH_ADDRESS
-import com.jacksonmed.bed.utils.bluetooth.BluetoothHandler
 import com.jacksonmed.bed.utils.bluetooth.BluetoothViewModel
 import com.jacksonmed.bed.utils.bluetooth.HelperFunctions.Companion.generateBluetoothByteArray
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.BED_DATA_RESPONSE_HEADER
@@ -47,7 +46,7 @@ class BedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBedBinding.inflate(inflater, container, false)
-        bluetoothService = MyBluetoothService(BluetoothHandler(bluetoothViewModel.bluetoothResponse), BLUETOOTH_ADDRESS, mContext, bluetoothViewModel::handleBluetooth)
+        bluetoothService = MyBluetoothService(BLUETOOTH_ADDRESS, mContext, bluetoothViewModel::handleBluetooth)
         bluetoothService.connect()
 
         return binding.root
