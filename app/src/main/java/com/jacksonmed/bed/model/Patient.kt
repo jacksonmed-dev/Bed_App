@@ -9,9 +9,12 @@ data class Patient(
     @SerializedName("last_name")
     val lastName: String,
 
+    @SerializedName("age")
     val age: Int,
 
+    @SerializedName("height")
     val height: Int,
 
+    @SerializedName("weight")
     val weight: Int
 )

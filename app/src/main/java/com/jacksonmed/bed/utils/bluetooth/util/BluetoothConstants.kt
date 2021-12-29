@@ -19,6 +19,8 @@ class BluetoothConstants {
         const val INFLATABLE_REGION_HEADER = "%"
         const val INFLATABLE_REGION_STATUS = "2"
 
+        const val PATIENT_STATUS_HEADER = "#"
+
         const val EMPTY_STRING = ""
 
         val ALL_HEADERS = arrayOf(
@@ -27,6 +29,7 @@ class BluetoothConstants {
             BED_DATA_RESPONSE_AUTOMATIC_HEADER,
             BED_STATUS_RESPONSE_HEADER,
             INFLATABLE_REGION_HEADER,
+            PATIENT_STATUS_HEADER
             )
     }
 }

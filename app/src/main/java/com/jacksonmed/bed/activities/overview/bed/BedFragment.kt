@@ -23,6 +23,7 @@ import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.EMPT
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.MASSAGE_HEADER
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.MASSAGE_START
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.MASSAGE_STOP
+import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.PATIENT_STATUS_HEADER
 
 
 class BedFragment : Fragment() {
@@ -93,7 +94,8 @@ class BedFragment : Fragment() {
 
         binding.buttonBedStatus.setOnClickListener {
             if(isBluetooth) bluetoothService.sendMessage(generateBluetoothByteArray(
-                BED_DATA_RESPONSE_HEADER,
+//                BED_DATA_RESPONSE_HEADER,
+                PATIENT_STATUS_HEADER,
                 EMPTY_STRING))
             else viewModel.getBedStatus()
         }

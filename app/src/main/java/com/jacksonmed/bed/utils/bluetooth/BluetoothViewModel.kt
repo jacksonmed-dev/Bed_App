@@ -7,6 +7,7 @@ import com.google.gson.Gson
 import com.jacksonmed.bed.api.BluetoothResponse
 import com.jacksonmed.bed.api.checkBluetoothResponse
 import com.jacksonmed.bed.model.Bed
+import com.jacksonmed.bed.model.Patient
 import com.jacksonmed.bed.utils.PressureBitmap
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.ALL_HEADERS
@@ -23,6 +24,7 @@ class BluetoothViewModel():ViewModel(){
     val bluetoothResponse: MediatorLiveData<BluetoothResponse<String>> = MediatorLiveData()
     val bedDataBitmap: MutableLiveData<Bitmap> = MutableLiveData()
     val bedStatusResponse: MediatorLiveData<Bed> = MediatorLiveData()
+    val patientStatusResponse: MediatorLiveData<Patient> = MediatorLiveData()
 //    fun simple(): Flow<Int> = flow {
 //        println("Flow started")
 //        for (i in 1..3) {
@@ -44,7 +46,7 @@ class BluetoothViewModel():ViewModel(){
 
         if(firstChar in switchChars){
             switchChar = firstChar
-            if(messageLastChar.equals(BluetoothConstants.TRAILER)) {
+            if(messageLastChar.equals(TRAILER)) {
                 bluetoothString = bluetoothString.plus(message)
                 handleBluetoothResponse(bluetoothString)
                 bluetoothString = ""
@@ -54,7 +56,7 @@ class BluetoothViewModel():ViewModel(){
             return
         }
 
-        if (messageLastChar.equals(BluetoothConstants.TRAILER)){
+        if (messageLastChar.equals(TRAILER)){
             bluetoothString = bluetoothString.plus(message)
             handleBluetoothResponse(bluetoothString)
             bluetoothString = ""
@@ -116,6 +118,16 @@ class BluetoothViewModel():ViewModel(){
                 try {
                     val newData: Bed = Gson().fromJson(bluetoothString, Bed::class.java)
                     bedStatusResponse.postValue(newData)
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
+                return
+            }
+            BluetoothConstants.PATIENT_STATUS_HEADER -> {
+                bluetoothString = bluetoothString.drop(1).dropLast(1)
+                try {
+                    val newData: Patient = Gson().fromJson(bluetoothString, Patient::class.java)
+                    patientStatusResponse.postValue(newData)
                 }catch (e: Exception){
                     e.printStackTrace()
                 }
