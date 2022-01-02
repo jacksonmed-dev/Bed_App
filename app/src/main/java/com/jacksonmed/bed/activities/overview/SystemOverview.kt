@@ -12,8 +12,10 @@ import com.jacksonmed.bed.activities.overview.bed.BedViewModelFactory
 import com.jacksonmed.bed.databinding.ActivitySystemOverviewBinding
 import com.jacksonmed.bed.repository.RepositoryBed
 import com.jacksonmed.bed.utils.bluetooth.service.MyBluetoothService
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class SystemOverview : AppCompatActivity() {
     //test commit message
 
