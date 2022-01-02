@@ -6,5 +6,4 @@ import dagger.hilt.android.HiltAndroidApp
 //Use for dependency injection
 @HiltAndroidApp
 class BaseApplication: Application() {
-
 }

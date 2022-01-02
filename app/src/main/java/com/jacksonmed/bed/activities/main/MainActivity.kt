@@ -7,18 +7,26 @@ import androidx.lifecycle.ViewModelProvider
 import com.jacksonmed.bed.databinding.ActivityMainBinding
 import com.jacksonmed.bed.activities.overview.SystemOverview
 import com.jacksonmed.bed.repository.Repository
+import com.jacksonmed.bed.utils.bluetooth.BluetoothViewModel
+import com.jacksonmed.bed.utils.bluetooth.service.MyBluetoothService
+import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: ActivityMainBinding
 
+    @Inject
+    lateinit var bluetoothService: MyBluetoothService
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        bluetoothService.connect()
 
         binding.buttonLoadPatient.setOnClickListener {
             val repository = Repository()

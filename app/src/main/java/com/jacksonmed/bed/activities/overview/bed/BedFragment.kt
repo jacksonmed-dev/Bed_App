@@ -13,6 +13,7 @@ import com.jacksonmed.bed.utils.bluetooth.service.MyBluetoothService
 import com.jacksonmed.bed.api.ApiResponse
 import com.jacksonmed.bed.api.BluetoothResponse
 import com.jacksonmed.bed.databinding.FragmentBedBinding
+import com.jacksonmed.bed.model.Patient
 import com.jacksonmed.bed.model.StatusResponse
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.BLUETOOTH_ADDRESS
 import com.jacksonmed.bed.utils.bluetooth.BluetoothViewModel
@@ -24,15 +25,18 @@ import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.MASS
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.MASSAGE_START
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.MASSAGE_STOP
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.PATIENT_STATUS_HEADER
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class BedFragment : Fragment() {
     private val isBluetooth = true
     private val viewModel: BedViewModel by activityViewModels()
     private val bluetoothViewModel: BluetoothViewModel by activityViewModels()
     private var _binding: FragmentBedBinding? = null
 
-    private lateinit var bluetoothService: MyBluetoothService
+    @Inject
+    lateinit var bluetoothService: MyBluetoothService
     private lateinit var mContext: Context
 
     private val binding get() = _binding!!
@@ -47,9 +51,6 @@ class BedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBedBinding.inflate(inflater, container, false)
-        bluetoothService = MyBluetoothService(BLUETOOTH_ADDRESS, mContext, bluetoothViewModel::handleBluetooth)
-        bluetoothService.connect()
-
         return binding.root
     }
 
@@ -59,6 +60,12 @@ class BedFragment : Fragment() {
         bluetoothViewModel.bluetoothResponse.observe(viewLifecycleOwner, object: Observer<BluetoothResponse<String>> {
             override fun onChanged(t: BluetoothResponse<String>?) {
                 binding.textViewResponse.text = t?.response
+            }
+        })
+
+        bluetoothViewModel.patientStatusResponse.observe(viewLifecycleOwner, object: Observer<BluetoothResponse<Patient>> {
+            override fun onChanged(t: BluetoothResponse<Patient>?) {
+                binding.textViewResponse.text = t?.response.toString()
             }
         })
 

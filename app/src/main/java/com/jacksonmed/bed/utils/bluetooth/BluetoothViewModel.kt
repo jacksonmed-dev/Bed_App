@@ -12,11 +12,14 @@ import com.jacksonmed.bed.utils.PressureBitmap
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.ALL_HEADERS
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.TRAILER
+import dagger.hilt.android.lifecycle.HiltViewModel
 import java.lang.Exception
 import java.util.*
+import javax.inject.Inject
 
 
-class BluetoothViewModel():ViewModel(){
+@HiltViewModel
+class BluetoothViewModel @Inject constructor(): ViewModel(){
     var bluetoothString: String = ""
     var switchChar: String = ""
     val switchChars: Array<String> = arrayOf("!", "@")
@@ -24,7 +27,7 @@ class BluetoothViewModel():ViewModel(){
     val bluetoothResponse: MediatorLiveData<BluetoothResponse<String>> = MediatorLiveData()
     val bedDataBitmap: MutableLiveData<Bitmap> = MutableLiveData()
     val bedStatusResponse: MediatorLiveData<Bed> = MediatorLiveData()
-    val patientStatusResponse: MediatorLiveData<Patient> = MediatorLiveData()
+    val patientStatusResponse: MediatorLiveData<BluetoothResponse<Patient>> = MediatorLiveData()
 //    fun simple(): Flow<Int> = flow {
 //        println("Flow started")
 //        for (i in 1..3) {
@@ -126,7 +129,7 @@ class BluetoothViewModel():ViewModel(){
             BluetoothConstants.PATIENT_STATUS_HEADER -> {
                 bluetoothString = bluetoothString.drop(1).dropLast(1)
                 try {
-                    val newData: Patient = Gson().fromJson(bluetoothString, Patient::class.java)
+                    val newData: BluetoothResponse<Patient> = checkBluetoothResponse(Gson().fromJson(bluetoothString, Patient::class.java))
                     patientStatusResponse.postValue(newData)
                 }catch (e: Exception){
                     e.printStackTrace()
