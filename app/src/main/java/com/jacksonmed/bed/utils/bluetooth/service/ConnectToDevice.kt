@@ -22,7 +22,7 @@ class ConnectToDevice(private val context: Context,
 
     override fun onPreExecute() {
         super.onPreExecute()
-        m_progress = ProgressDialog.show(context, "Connecting...", "wait")
+//        m_progress = ProgressDialog.show(context, "Connecting...", "wait")
     }
 
     override fun doInBackground(vararg params: Void?): String? {

@@ -30,27 +30,26 @@ const val MESSAGE_TOAST: Int = 2
 // ... (Add other message types here as needed.)
 
 class MyBluetoothService @Inject constructor(
-    // handler that gets info from Bluetooth service
-//    private val handler: Handler,
     @ApplicationContext context: Context,
-): Service() {
+) {
     private val context = context
+    private lateinit var callback: (result: ByteArray) -> Unit
     val m_address: String = BluetoothConstants.BLUETOOTH_ADDRESS
     lateinit var handler: Handler
     lateinit var m_bluetoothSocket: BluetoothSocket
     lateinit var m_bluetoothService: ConnectedThread
 
-//    @Inject
-//    var bluetoothViewModel: BluetoothViewModel by
-
-
     fun processFinish(m_bluetoothSocket: BluetoothSocket) {
-        if(m_bluetoothSocket != null){
+        if(m_bluetoothSocket != null && callback != null){
             this.m_bluetoothSocket = m_bluetoothSocket
             handler = Handler(Looper.getMainLooper())
-            m_bluetoothService = ConnectedThread(this.handler!!, this.m_bluetoothSocket!!, bluetoothViewModel::handleBluetooth)
+            m_bluetoothService = ConnectedThread(this.handler!!, this.m_bluetoothSocket!!, callback)
             m_bluetoothService.start()
         }
+    }
+
+    fun registerCallback(callback: (result: ByteArray) -> Unit){
+        this.callback = callback
     }
 
     fun connect(){
@@ -63,9 +62,4 @@ class MyBluetoothService @Inject constructor(
             m_bluetoothService.write(data)
         }
     }
-
-    override fun onBind(intent: Intent?): IBinder? {
-        TODO("Not yet implemented")
-    }
-
 }

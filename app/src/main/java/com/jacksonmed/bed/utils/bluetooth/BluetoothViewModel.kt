@@ -1,5 +1,6 @@
 package com.jacksonmed.bed.utils.bluetooth
 
+import android.app.Application
 import android.graphics.Bitmap
 import android.graphics.Color
 import androidx.lifecycle.*
@@ -9,9 +10,11 @@ import com.jacksonmed.bed.api.checkBluetoothResponse
 import com.jacksonmed.bed.model.Bed
 import com.jacksonmed.bed.model.Patient
 import com.jacksonmed.bed.utils.PressureBitmap
+import com.jacksonmed.bed.utils.bluetooth.service.MyBluetoothService
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.ALL_HEADERS
 import com.jacksonmed.bed.utils.bluetooth.util.BluetoothConstants.Companion.TRAILER
+import dagger.hilt.android.internal.Contexts.getApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.lang.Exception
 import java.util.*
@@ -19,7 +22,9 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class BluetoothViewModel @Inject constructor(): ViewModel(){
+class BluetoothViewModel @Inject constructor(
+    private val myBluetoothService: MyBluetoothService
+): ViewModel(){
     var bluetoothString: String = ""
     var switchChar: String = ""
     val switchChars: Array<String> = arrayOf("!", "@")
@@ -28,13 +33,15 @@ class BluetoothViewModel @Inject constructor(): ViewModel(){
     val bedDataBitmap: MutableLiveData<Bitmap> = MutableLiveData()
     val bedStatusResponse: MediatorLiveData<Bed> = MediatorLiveData()
     val patientStatusResponse: MediatorLiveData<BluetoothResponse<Patient>> = MediatorLiveData()
-//    fun simple(): Flow<Int> = flow {
-//        println("Flow started")
-//        for (i in 1..3) {
-//            delay(100)
-//            emit(i)
-//        }
-//    }
+
+    //TODO
+    fun stopBluetoothService() {
+    }
+
+    fun startBluetoothService() {
+        myBluetoothService.registerCallback(::handleBluetooth)
+        myBluetoothService.connect()
+    }
 
     fun handleBluetooth(data: ByteArray){
         val data: ByteArray = HelperFunctions.removeBytePadding(data)

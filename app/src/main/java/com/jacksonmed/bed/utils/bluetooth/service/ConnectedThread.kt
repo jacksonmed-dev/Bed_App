@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothSocket
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import com.jacksonmed.bed.utils.bluetooth.BluetoothViewModel
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
