@@ -7,6 +7,8 @@ import android.bluetooth.BluetoothSocket
 import android.content.Context
 import android.os.AsyncTask
 import android.util.Log
+import android.widget.Toast
+import com.jacksonmed.bed.activities.overview.SystemOverview
 import java.lang.Exception
 import java.util.*
 
@@ -15,14 +17,13 @@ class ConnectToDevice(private val context: Context,
                       private val m_address: String) : AsyncTask<Void, Void, String>() {
     var m_myUUID: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
     var m_bluetoothSocket: BluetoothSocket? = null
-    lateinit var m_progress: ProgressDialog
     lateinit var m_bluetoothAdapter: BluetoothAdapter
     var m_isConnected: Boolean = false
     private var connectSuccess: Boolean = true
 
     override fun onPreExecute() {
         super.onPreExecute()
-//        m_progress = ProgressDialog.show(context, "Connecting...", "wait")
+        Toast.makeText(context, "Connecting", Toast.LENGTH_SHORT).show()
     }
 
     override fun doInBackground(vararg params: Void?): String? {
@@ -54,6 +55,8 @@ class ConnectToDevice(private val context: Context,
             m_isConnected = true
         }
         listener(m_bluetoothSocket!!)
-        m_progress.dismiss()
+        Toast.makeText(context, "Connected", Toast.LENGTH_SHORT).show()
     }
+
+
 }

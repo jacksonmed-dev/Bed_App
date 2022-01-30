@@ -35,9 +35,9 @@ class BedFragment : Fragment() {
     private val viewModel: BedViewModel by activityViewModels()
     private val bluetoothViewModel: BluetoothViewModel by activityViewModels()
     private var _binding: FragmentBedBinding? = null
-//
-//    @Inject
-//    lateinit var bluetoothService: MyBluetoothService
+
+    @Inject
+    lateinit var bluetoothService: MyBluetoothService
     private lateinit var mContext: Context
 
     private val binding get() = _binding!!
@@ -87,32 +87,32 @@ class BedFragment : Fragment() {
             }
 
         binding.switchMassage.setOnCheckedChangeListener {_ , isChecked ->
-//            if(isChecked) {
-//                if(isBluetooth) bluetoothService.sendMessage(generateBluetoothByteArray(
-//                    MASSAGE_HEADER,
-//                    MASSAGE_START))
-//                else viewModel.startMassage().observe(viewLifecycleOwner, apiStatusResponseObserver)
-//            }else {
-//                if(isBluetooth) bluetoothService.sendMessage(generateBluetoothByteArray(
-//                    MASSAGE_HEADER,
-//                    MASSAGE_STOP))
-//                else viewModel.stopMassage().observe(viewLifecycleOwner, apiStatusResponseObserver)
-//            }
+            if(isChecked) {
+                if(isBluetooth) bluetoothService.sendMessage(generateBluetoothByteArray(
+                    MASSAGE_HEADER,
+                    MASSAGE_START))
+                else viewModel.startMassage().observe(viewLifecycleOwner, apiStatusResponseObserver)
+            }else {
+                if(isBluetooth) bluetoothService.sendMessage(generateBluetoothByteArray(
+                    MASSAGE_HEADER,
+                    MASSAGE_STOP))
+                else viewModel.stopMassage().observe(viewLifecycleOwner, apiStatusResponseObserver)
+            }
         }
 
         binding.buttonBedStatus.setOnClickListener {
-//            if(isBluetooth) bluetoothService.sendMessage(generateBluetoothByteArray(
-////                BED_DATA_RESPONSE_HEADER,
-//                PATIENT_STATUS_HEADER,
-//                EMPTY_STRING))
-//            else viewModel.getBedStatus()
+            if(isBluetooth) bluetoothService.sendMessage(generateBluetoothByteArray(
+//                BED_DATA_RESPONSE_HEADER,
+                PATIENT_STATUS_HEADER,
+                EMPTY_STRING))
+            else viewModel.getBedStatus()
         }
 
         binding.bedStatusSwitch.setOnCheckedChangeListener{_, isChecked ->
-//            if(isBluetooth) bluetoothService.sendMessage(generateBluetoothByteArray(
-//                BED_DATA_RESPONSE_AUTOMATIC_HEADER,
-//                EMPTY_STRING))
-//            else viewModel.getBedStatus()
+            if(isBluetooth) bluetoothService.sendMessage(generateBluetoothByteArray(
+                BED_DATA_RESPONSE_AUTOMATIC_HEADER,
+                EMPTY_STRING))
+            else viewModel.getBedStatus()
         }
 
         binding.switchBedData.setOnCheckedChangeListener{_, isChecked ->

@@ -19,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
+import javax.inject.Singleton
 
 private const val TAG = "MY_APP_DEBUG_TAG"
 // https://developer.android.com/guide/topics/connectivity/bluetooth/transfer-data
@@ -29,6 +30,7 @@ const val MESSAGE_WRITE: Int = 1
 const val MESSAGE_TOAST: Int = 2
 // ... (Add other message types here as needed.)
 
+@Singleton
 class MyBluetoothService @Inject constructor(
     @ApplicationContext context: Context,
 ) {

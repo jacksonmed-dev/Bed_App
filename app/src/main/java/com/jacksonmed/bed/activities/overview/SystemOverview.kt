@@ -32,7 +32,7 @@ class SystemOverview : AppCompatActivity() {
         setContentView(binding.root)
 
 //        binding.bottomNavigation.setBackgroundColor(ContextCompat.getColor(applicationContext, android.R.color.transparent))
-        bluetoothViewModel.startBluetoothService()
+          bluetoothViewModel.startBluetoothService()
 
         val repository = RepositoryBed()
         val viewModelFactory = BedViewModelFactory(repository)

@@ -1,8 +1,10 @@
 package com.jacksonmed.bed.utils.bluetooth
 
 import android.app.Application
+import android.content.ContentValues.TAG
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.util.Log
 import androidx.lifecycle.*
 import com.google.gson.Gson
 import com.jacksonmed.bed.api.BluetoothResponse
